@@ -1,8 +1,10 @@
 name: release-tag
 
-# Convenience workflow: bump package.json version, commit, tag, and push.
-# The push of the v*.*.* tag then triggers `release.yml` which builds, tests,
-# publishes to Marketplace + Open VSX, and creates the GitHub Release.
+# Convenience workflow: bump package.json version, commit, tag, push, and
+# then directly call release.yml via workflow_call. This bypasses GitHub's
+# "tags pushed by GITHUB_TOKEN don't trigger workflows" safeguard — instead
+# of relying on the tag-push event to chain into release.yml, we invoke it
+# explicitly in a downstream job.
 #
 # Trigger from the GitHub UI: Actions tab → "release-tag" → "Run workflow".
 
@@ -25,7 +27,7 @@ on:
         default: ''
         type: string
       dry_run:
-        description: 'Dry run (compute the next version and print it; do not commit or tag)'
+        description: 'Dry run (compute the next version and print it; do not commit, tag, or publish)'
         required: false
         default: false
         type: boolean
@@ -40,6 +42,10 @@ concurrency:
 jobs:
   tag:
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.bump.outputs.tag }}
+      same: ${{ steps.bump.outputs.same }}
+      dry_run: ${{ inputs.dry_run }}
     steps:
       - name: Validate inputs
         run: |
@@ -51,15 +57,12 @@ jobs:
       - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-          # Token must be able to push to main. Default GITHUB_TOKEN has write
-          # access via the `contents: write` permission above.
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/setup-node@v6
         with:
           node-version: 24
           # `cache: 'npm'` intentionally omitted — see ci-cache-safety rule.
-          # This workflow does no install / build, so no cache is needed.
 
       - name: Configure git as the actions bot
         run: |
@@ -72,7 +75,6 @@ jobs:
           CURRENT=$(node -p "require('./package.json').version")
           if [ "${{ inputs.bump }}" = "custom" ]; then
             NEW_VERSION="${{ inputs.custom_version }}"
-            # Strip leading `v` if the user added one.
             NEW_VERSION="${NEW_VERSION#v}"
           else
             NEW_VERSION=$(node -e "
@@ -100,6 +102,7 @@ jobs:
           fi
 
       - name: Verify tag doesn't already exist
+        if: ${{ inputs.dry_run != true }}
         run: |
           if git rev-parse "${{ steps.bump.outputs.tag }}" >/dev/null 2>&1; then
             echo "::error::Tag ${{ steps.bump.outputs.tag }} already exists. Pick a different version."
@@ -109,9 +112,11 @@ jobs:
       - name: Dry-run summary
         if: ${{ inputs.dry_run == true }}
         run: |
-          echo "::notice::Dry run — would bump to ${{ steps.bump.outputs.version }} and tag ${{ steps.bump.outputs.tag }}. No commit or tag created."
-          echo "## Dry run" >> "$GITHUB_STEP_SUMMARY"
-          echo "Would tag: \`${{ steps.bump.outputs.tag }}\`" >> "$GITHUB_STEP_SUMMARY"
+          echo "::notice::Dry run — would tag ${{ steps.bump.outputs.tag }} and publish. No commit, tag, or publish."
+          {
+            echo "## Dry run"
+            echo "Would tag: \`${{ steps.bump.outputs.tag }}\`"
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Bump package.json
         if: ${{ inputs.dry_run != true && steps.bump.outputs.same != 'true' }}
@@ -130,10 +135,18 @@ jobs:
           git tag -a "${{ steps.bump.outputs.tag }}" -m "Release ${{ steps.bump.outputs.tag }}"
           git push origin "${{ steps.bump.outputs.tag }}"
 
-      - name: Trigger summary
+      - name: Tag summary
         if: ${{ inputs.dry_run != true }}
         run: |
-          echo "## Released" >> "$GITHUB_STEP_SUMMARY"
-          echo "Tagged: \`${{ steps.bump.outputs.tag }}\`" >> "$GITHUB_STEP_SUMMARY"
-          echo "→ \`release.yml\` is now publishing to the Marketplace + Open VSX." >> "$GITHUB_STEP_SUMMARY"
-          echo "→ Watch: https://github.com/${{ github.repository }}/actions/workflows/release.yml" >> "$GITHUB_STEP_SUMMARY"
+          {
+            echo "## Tagged \`${{ steps.bump.outputs.tag }}\`"
+            echo "→ next job in this run invokes \`release.yml\` to publish."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  publish:
+    needs: tag
+    if: ${{ needs.tag.outputs.dry_run != 'true' }}
+    uses: ./.github/workflows/release.yml
+    with:
+      tag: ${{ needs.tag.outputs.tag }}
+    secrets: inherit

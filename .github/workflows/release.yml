@@ -1,8 +1,31 @@
 name: release
 
+# Three trigger paths converge on one publish job:
+#   1. Manual `git push origin v*.*.*`            → push event
+#   2. UI dispatch via Actions tab                 → workflow_dispatch event
+#   3. Programmatic call from release-tag.yml      → workflow_call event
+# The `tag` to publish is normalized into env.RELEASE_TAG below.
+
 on:
   push:
     tags: ['v*.*.*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to publish (e.g., v0.1.0). Must already exist on the repo.'
+        required: true
+        type: string
+  workflow_call:
+    inputs:
+      tag:
+        description: 'Tag to publish (e.g., v0.1.0). Must already exist on the repo.'
+        required: true
+        type: string
+    secrets:
+      VSCE_PAT:
+        required: true
+      OVSX_PAT:
+        required: true
 
 permissions:
   contents: write
@@ -11,9 +34,12 @@ jobs:
   publish:
     name: build · publish · release
     runs-on: ubuntu-latest
+    env:
+      RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
     steps:
       - uses: actions/checkout@v6
         with:
+          ref: ${{ inputs.tag || github.ref_name }}
           fetch-depth: 0
 
       - uses: actions/setup-node@v6
@@ -33,7 +59,7 @@ jobs:
       - name: Verify tag matches package.json version
         run: |
           PKG_VERSION="v$(node -p "require('./package.json').version")"
-          TAG_VERSION="${GITHUB_REF_NAME}"
+          TAG_VERSION="$RELEASE_TAG"
           if [ "$PKG_VERSION" != "$TAG_VERSION" ]; then
             echo "::error::Tag $TAG_VERSION does not match package.json version $PKG_VERSION"
             exit 1
@@ -86,6 +112,7 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
         with:
+          tag_name: ${{ env.RELEASE_TAG }}
           files: modelfile-syntax.vsix
           generate_release_notes: true
           fail_on_unmatched_files: true
