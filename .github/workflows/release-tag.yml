@@ -69,12 +69,12 @@ jobs:
       - name: Compute next version
         id: bump
         run: |
+          CURRENT=$(node -p "require('./package.json').version")
           if [ "${{ inputs.bump }}" = "custom" ]; then
             NEW_VERSION="${{ inputs.custom_version }}"
             # Strip leading `v` if the user added one.
             NEW_VERSION="${NEW_VERSION#v}"
           else
-            CURRENT=$(node -p "require('./package.json').version")
             NEW_VERSION=$(node -e "
               const [maj, min, pat] = '$CURRENT'.split('.').map(Number);
               const bump = '${{ inputs.bump }}';
@@ -84,9 +84,20 @@ jobs:
             ")
           fi
           TAG="v$NEW_VERSION"
+          if [ "$CURRENT" = "$NEW_VERSION" ]; then
+            SAME=true
+          else
+            SAME=false
+          fi
+          echo "current=$CURRENT" >> "$GITHUB_OUTPUT"
           echo "version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
-          echo "Next version: $NEW_VERSION → tag $TAG"
+          echo "same=$SAME" >> "$GITHUB_OUTPUT"
+          if [ "$SAME" = "true" ]; then
+            echo "package.json is already at $NEW_VERSION → will tag the current HEAD without a bump commit."
+          else
+            echo "Next version: $CURRENT → $NEW_VERSION → tag $TAG"
+          fi
 
       - name: Verify tag doesn't already exist
         run: |
@@ -103,16 +114,20 @@ jobs:
           echo "Would tag: \`${{ steps.bump.outputs.tag }}\`" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Bump package.json
-        if: ${{ inputs.dry_run != true }}
+        if: ${{ inputs.dry_run != true && steps.bump.outputs.same != 'true' }}
         run: npm version "${{ steps.bump.outputs.version }}" --no-git-tag-version
 
-      - name: Commit, tag, and push
-        if: ${{ inputs.dry_run != true }}
+      - name: Commit bump (only when version actually changed)
+        if: ${{ inputs.dry_run != true && steps.bump.outputs.same != 'true' }}
         run: |
           git add package.json package-lock.json
           git commit -m "release: ${{ steps.bump.outputs.tag }}"
-          git tag -a "${{ steps.bump.outputs.tag }}" -m "Release ${{ steps.bump.outputs.tag }}"
           git push origin main
+
+      - name: Tag and push tag
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          git tag -a "${{ steps.bump.outputs.tag }}" -m "Release ${{ steps.bump.outputs.tag }}"
           git push origin "${{ steps.bump.outputs.tag }}"
 
       - name: Trigger summary
