@@ -1,6 +1,6 @@
 <div align="center">
 
-<!-- Banner placeholder — replace with an actual 1280×640 PNG before tagging v0.1.0 -->
+<img src="images/icon.png" alt="Ollama Modelfile extension icon" width="128" height="128" />
 
 # Ollama Modelfile — VSCode Syntax Highlighting, Linter & Snippets
 
