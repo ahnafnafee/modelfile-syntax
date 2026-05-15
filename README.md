@@ -6,7 +6,6 @@
 
 **The complete language-tooling experience for [Ollama](https://ollama.com) Modelfiles, in every VSCode-family editor.**
 
-[![Marketplace](https://img.shields.io/visual-studio-marketplace/v/ahnafnafee.modelfile-syntax?style=for-the-badge&label=Marketplace&labelColor=0a0a0a&color=007ACC&logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ahnafnafee.modelfile-syntax)
 [![Open VSX](https://img.shields.io/open-vsx/v/ahnafnafee/modelfile-syntax?style=for-the-badge&label=Open%20VSX&labelColor=0a0a0a&color=A40E26&logo=eclipseide&logoColor=white)](https://open-vsx.org/extension/ahnafnafee/modelfile-syntax)
 [![CI](https://img.shields.io/github/actions/workflow/status/ahnafnafee/modelfile-syntax/ci.yml?style=for-the-badge&branch=main&label=CI&labelColor=0a0a0a&logo=githubactions&logoColor=white)](https://github.com/ahnafnafee/modelfile-syntax/actions/workflows/ci.yml)
 [![License](https://img.shields.io/github/license/ahnafnafee/modelfile-syntax?style=for-the-badge&label=License&labelColor=0a0a0a&color=blue)](LICENSE)
