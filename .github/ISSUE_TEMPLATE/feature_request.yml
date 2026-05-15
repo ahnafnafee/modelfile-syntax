@@ -1,0 +1,25 @@
+name: Feature request
+description: Suggest a new linter rule, snippet, grammar scope, or feature.
+labels: [enhancement]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Feature kind
+      options:
+        - New linter rule
+        - Snippet
+        - Grammar scope refinement
+        - Hover / completion improvement
+        - Other
+    validations: { required: true }
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+    validations: { required: true }
+  - type: textarea
+    id: example
+    attributes:
+      label: Example Modelfile (if applicable)
+      render: text

@@ -1,0 +1,268 @@
+{
+  "FROM (bare model)": {
+    "prefix": "from",
+    "body": ["FROM ${1|llama3.2,llama3.1,qwen2.5,mistral,phi3,gemma2,codellama|}"],
+    "description": "Declare a base model by name."
+  },
+  "FROM (tagged)": {
+    "prefix": "from-tag",
+    "body": ["FROM ${1:llama3.2}:${2:8b}"],
+    "description": "Declare a base model with a specific tag."
+  },
+  "FROM (local GGUF)": {
+    "prefix": "from-gguf",
+    "body": ["FROM ./${1:model.gguf}"],
+    "description": "Declare a base model from a local GGUF file."
+  },
+  "FROM (HuggingFace)": {
+    "prefix": "from-hf",
+    "body": ["FROM hf.co/${1:org}/${2:repo}-GGUF"],
+    "description": "Declare a base model from a HuggingFace repo."
+  },
+
+  "PARAMETER temperature": {
+    "prefix": "param-temp",
+    "body": ["PARAMETER temperature ${1:0.7}"],
+    "description": "Sampling temperature (0 = greedy, higher = more creative)."
+  },
+  "PARAMETER num_ctx": {
+    "prefix": "param-ctx",
+    "body": ["PARAMETER num_ctx ${1|2048,4096,8192,16384,32768,65536|}"],
+    "description": "Context window size in tokens."
+  },
+  "PARAMETER top_p": {
+    "prefix": "param-top-p",
+    "body": ["PARAMETER top_p ${1:0.9}"],
+    "description": "Nucleus sampling threshold."
+  },
+  "PARAMETER top_k": {
+    "prefix": "param-top-k",
+    "body": ["PARAMETER top_k ${1:40}"],
+    "description": "Top-K sampling."
+  },
+  "PARAMETER min_p": {
+    "prefix": "param-min-p",
+    "body": ["PARAMETER min_p ${1:0.05}"],
+    "description": "Minimum token probability relative to most likely."
+  },
+  "PARAMETER repeat_penalty": {
+    "prefix": "param-rep",
+    "body": ["PARAMETER repeat_penalty ${1:1.1}"],
+    "description": "Repetition penalty."
+  },
+  "PARAMETER seed": {
+    "prefix": "param-seed",
+    "body": ["PARAMETER seed ${1:42}"],
+    "description": "Random seed for reproducibility."
+  },
+  "PARAMETER stop": {
+    "prefix": "param-stop",
+    "body": ["PARAMETER stop \"${1:<|eot_id|>}\""],
+    "description": "A stop sequence. Repeat for multiple."
+  },
+  "PARAMETER num_gpu (max)": {
+    "prefix": "param-gpu",
+    "body": ["PARAMETER num_gpu ${1|999,0,-1|}"],
+    "description": "GPUs to use (999 = all available, 0 = CPU only, -1 = auto)."
+  },
+
+  "SYSTEM (single-line)": {
+    "prefix": "sys",
+    "body": ["SYSTEM \"${1:You are a helpful assistant.}\""],
+    "description": "Single-line system prompt."
+  },
+  "SYSTEM (multi-line)": {
+    "prefix": "sys-multi",
+    "body": ["SYSTEM \"\"\"", "${1:You are a helpful assistant.}", "\"\"\""],
+    "description": "Multi-line system prompt with triple quotes."
+  },
+  "SYSTEM (coder persona)": {
+    "prefix": "sys-coder",
+    "body": [
+      "SYSTEM \"\"\"",
+      "You are a senior ${1:Python} engineer. Answer in three sections:",
+      "1. Direct answer (one sentence)",
+      "2. Code (concise, runnable)",
+      "3. Caveats (only if non-obvious)",
+      "",
+      "Do not invent APIs. If unsure, say so.",
+      "\"\"\""
+    ],
+    "description": "System prompt for a coding assistant."
+  },
+  "SYSTEM (RAG / grounded)": {
+    "prefix": "sys-rag",
+    "body": [
+      "SYSTEM \"\"\"",
+      "Answer ONLY using the provided context.",
+      "If the context does not contain the answer, say:",
+      "\"I don't have that information in available documentation.\"",
+      "Cite the source snippet for every claim.",
+      "\"\"\""
+    ],
+    "description": "System prompt for RAG/grounded answering."
+  },
+
+  "TEMPLATE (Llama 3 chat)": {
+    "prefix": "template-llama3",
+    "body": [
+      "TEMPLATE \"\"\"{{- if .System }}<|start_header_id|>system<|end_header_id|>",
+      "",
+      "{{ .System }}<|eot_id|>{{- end }}",
+      "{{- range .Messages }}<|start_header_id|>{{ .Role }}<|end_header_id|>",
+      "",
+      "{{ .Content }}<|eot_id|>{{- end }}<|start_header_id|>assistant<|end_header_id|>",
+      "",
+      "\"\"\"",
+      "PARAMETER stop \"<|start_header_id|>\"",
+      "PARAMETER stop \"<|end_header_id|>\"",
+      "PARAMETER stop \"<|eot_id|>\""
+    ],
+    "description": "Llama 3 chat template with stop sequences."
+  },
+  "TEMPLATE (Qwen 2.5 chat)": {
+    "prefix": "template-qwen",
+    "body": [
+      "TEMPLATE \"\"\"{{ if .System }}<|im_start|>system",
+      "{{ .System }}<|im_end|>",
+      "{{ end }}{{ range .Messages }}<|im_start|>{{ .Role }}",
+      "{{ .Content }}<|im_end|>",
+      "{{ end }}<|im_start|>assistant",
+      "\"\"\"",
+      "PARAMETER stop \"<|im_start|>\"",
+      "PARAMETER stop \"<|im_end|>\""
+    ],
+    "description": "Qwen 2.5 ChatML-style template with stop sequences."
+  },
+  "TEMPLATE (ChatML generic)": {
+    "prefix": "template-chatml",
+    "body": [
+      "TEMPLATE \"\"\"{{ if .System }}<|im_start|>system",
+      "{{ .System }}<|im_end|>",
+      "{{ end }}{{ range .Messages }}<|im_start|>{{ .Role }}",
+      "{{ .Content }}<|im_end|>",
+      "{{ end }}<|im_start|>assistant",
+      "\"\"\""
+    ],
+    "description": "Generic ChatML template."
+  },
+  "TEMPLATE (Phi-3 chat)": {
+    "prefix": "template-phi3",
+    "body": [
+      "TEMPLATE \"\"\"{{- range .Messages }}<|{{ .Role }}|>",
+      "{{ .Content }}<|end|>",
+      "{{ end }}<|assistant|>",
+      "\"\"\"",
+      "PARAMETER stop \"<|end|>\"",
+      "PARAMETER stop \"<|user|>\"",
+      "PARAMETER stop \"<|assistant|>\""
+    ],
+    "description": "Phi-3 chat template."
+  },
+
+  "MESSAGE trio (system/user/assistant)": {
+    "prefix": "message-trio",
+    "body": [
+      "MESSAGE user \"${1:What is the capital of France?}\"",
+      "MESSAGE assistant \"${2:Paris.}\""
+    ],
+    "description": "A one-shot example exchange (user + assistant)."
+  },
+  "MESSAGE user": {
+    "prefix": "msg-user",
+    "body": ["MESSAGE user \"${1:question}\""],
+    "description": "An example user message."
+  },
+  "MESSAGE assistant": {
+    "prefix": "msg-asst",
+    "body": ["MESSAGE assistant \"${1:answer}\""],
+    "description": "An example assistant response."
+  },
+  "MESSAGE system": {
+    "prefix": "msg-system",
+    "body": ["MESSAGE system \"${1:one-off system note}\""],
+    "description": "A one-off system message (prefer SYSTEM for global prompts)."
+  },
+
+  "ADAPTER (LoRA)": {
+    "prefix": "adapter",
+    "body": ["ADAPTER ./${1:adapter.gguf}"],
+    "description": "Apply a LoRA/QLoRA adapter (.gguf required)."
+  },
+  "REQUIRES": {
+    "prefix": "requires",
+    "body": ["REQUIRES ${1:0.6.0}"],
+    "description": "Minimum Ollama version (semver)."
+  },
+  "LICENSE": {
+    "prefix": "license",
+    "body": ["LICENSE \"${1:MIT}\""],
+    "description": "Declare the model's license."
+  },
+
+  "Full Modelfile (chat assistant)": {
+    "prefix": "modelfile-chat",
+    "body": [
+      "FROM ${1|llama3.2,llama3.1,qwen2.5,mistral|}",
+      "",
+      "PARAMETER temperature ${2:0.7}",
+      "PARAMETER num_ctx ${3:8192}",
+      "PARAMETER top_p 0.9",
+      "PARAMETER repeat_penalty 1.1",
+      "",
+      "SYSTEM \"\"\"",
+      "${4:You are a helpful assistant.}",
+      "\"\"\""
+    ],
+    "description": "Complete conversational Modelfile."
+  },
+  "Full Modelfile (coder)": {
+    "prefix": "modelfile-coder",
+    "body": [
+      "FROM ${1|codellama,qwen2.5-coder,llama3.2|}",
+      "",
+      "PARAMETER temperature 0.15",
+      "PARAMETER num_ctx ${2:16384}",
+      "PARAMETER top_p 0.9",
+      "PARAMETER repeat_penalty 1.05",
+      "",
+      "SYSTEM \"\"\"",
+      "You are a senior ${3:Python} engineer. Answer in three sections:",
+      "1. Direct answer (one sentence)",
+      "2. Code (concise, runnable)",
+      "3. Caveats (only if non-obvious)",
+      "",
+      "Do not invent APIs. If unsure, say so.",
+      "\"\"\""
+    ],
+    "description": "Coding-assistant Modelfile (low temperature, code-focused system prompt)."
+  },
+  "Full Modelfile (RAG)": {
+    "prefix": "modelfile-rag",
+    "body": [
+      "FROM ${1:llama3.2}",
+      "",
+      "PARAMETER temperature 0.2",
+      "PARAMETER num_ctx ${2:16384}",
+      "PARAMETER top_p 0.85",
+      "PARAMETER repeat_penalty 1.05",
+      "",
+      "SYSTEM \"\"\"",
+      "Answer ONLY using the provided context.",
+      "If the context does not contain the answer, say:",
+      "\"I don't have that information in available documentation.\"",
+      "Cite the source snippet for every claim.",
+      "\"\"\""
+    ],
+    "description": "RAG-grounded Modelfile (factual, low-creativity)."
+  },
+  "Header comment": {
+    "prefix": "header",
+    "body": [
+      "# ${1:Modelfile name}",
+      "# Author: ${2:your-name}",
+      "# Purpose: ${3:short description}"
+    ],
+    "description": "File header comment block."
+  }
+}

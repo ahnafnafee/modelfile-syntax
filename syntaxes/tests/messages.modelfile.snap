@@ -1,0 +1,56 @@
+>FROM llama3.2
+#^^^^ source.modelfile keyword.control.instruction.from.modelfile
+#    ^ source.modelfile
+#     ^^^^^^^^ source.modelfile entity.name.tag.from.modelfile
+>
+>SYSTEM """You are a math tutor. Explain step by step."""
+#^^^^^^ source.modelfile keyword.control.instruction.system.modelfile
+#      ^ source.modelfile
+#       ^^^ source.modelfile string.quoted.triple.modelfile punctuation.definition.string.begin.modelfile
+#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile string.quoted.triple.modelfile
+#                                                     ^^^ source.modelfile string.quoted.triple.modelfile punctuation.definition.string.end.modelfile
+>
+>MESSAGE user "What is 2 + 2?"
+#^^^^^^^ source.modelfile keyword.control.instruction.message.modelfile
+#       ^ source.modelfile
+#        ^^^^ source.modelfile constant.language.role.modelfile
+#            ^ source.modelfile
+#             ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.begin.modelfile
+#              ^^^^^^^^^^^^^^ source.modelfile string.quoted.double.modelfile
+#                            ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.end.modelfile
+>MESSAGE assistant "2 + 2 = 4."
+#^^^^^^^ source.modelfile keyword.control.instruction.message.modelfile
+#       ^ source.modelfile
+#        ^^^^^^^^^ source.modelfile constant.language.role.modelfile
+#                 ^ source.modelfile
+#                  ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.begin.modelfile
+#                   ^^^^^^^^^^ source.modelfile string.quoted.double.modelfile
+#                             ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.end.modelfile
+>MESSAGE user """If I have 3 apples and buy 2 more, how many do I have?"""
+#^^^^^^^ source.modelfile keyword.control.instruction.message.modelfile
+#       ^ source.modelfile
+#        ^^^^ source.modelfile constant.language.role.modelfile
+#            ^ source.modelfile
+#             ^^^ source.modelfile string.quoted.triple.modelfile punctuation.definition.string.begin.modelfile
+#                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile string.quoted.triple.modelfile
+#                                                                      ^^^ source.modelfile string.quoted.triple.modelfile punctuation.definition.string.end.modelfile
+>MESSAGE assistant """You have 3 + 2 = 5 apples."""
+#^^^^^^^ source.modelfile keyword.control.instruction.message.modelfile
+#       ^ source.modelfile
+#        ^^^^^^^^^ source.modelfile constant.language.role.modelfile
+#                 ^ source.modelfile
+#                  ^^^ source.modelfile string.quoted.triple.modelfile punctuation.definition.string.begin.modelfile
+#                     ^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile string.quoted.triple.modelfile
+#                                               ^^^ source.modelfile string.quoted.triple.modelfile punctuation.definition.string.end.modelfile
+>
+># Invalid role — grammar still tokenizes the keyword but flags role as illegal
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>MESSAGE robot "this role is not in the spec"
+#^^^^^^^ source.modelfile keyword.control.instruction.message.modelfile
+#       ^ source.modelfile
+#        ^^^^^ source.modelfile invalid.illegal.role.modelfile
+#             ^ source.modelfile
+#              ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.begin.modelfile
+#               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile string.quoted.double.modelfile
+#                                           ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.end.modelfile
+>

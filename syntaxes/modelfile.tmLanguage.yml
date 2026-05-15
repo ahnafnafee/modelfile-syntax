@@ -1,0 +1,287 @@
+$schema: https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json
+name: Ollama Modelfile
+scopeName: source.modelfile
+fileTypes:
+  - modelfile
+  - Modelfile
+
+patterns:
+  - include: '#comment'
+  - include: '#instructions'
+
+repository:
+  comment:
+    name: comment.line.number-sign.modelfile
+    match: '^\s*#.*$'
+
+  instructions:
+    patterns:
+      - include: '#instruction-from'
+      - include: '#instruction-parameter-active'
+      - include: '#instruction-parameter-deprecated'
+      - include: '#instruction-parameter-unknown'
+      - include: '#instruction-template'
+      - include: '#instruction-system'
+      - include: '#instruction-message-valid'
+      - include: '#instruction-message-invalid'
+      - include: '#instruction-adapter'
+      - include: '#instruction-license'
+      - include: '#instruction-requires'
+      - include: '#instruction-renderer'
+      - include: '#instruction-parser'
+      - include: '#instruction-draft'
+
+  instruction-from:
+    begin: '(?i)^\s*(FROM)\b\s*'
+    beginCaptures:
+      '1':
+        name: keyword.control.instruction.from.modelfile
+    end: '$'
+    patterns:
+      - include: '#string-triple'
+      - include: '#string-double'
+      - name: string.unquoted.path.modelfile
+        match: '(\.{1,2}|~)?/\S+'
+      - name: entity.name.tag.from.modelfile
+        match: '[A-Za-z0-9][A-Za-z0-9_.\-]*(:[A-Za-z0-9_.\-]+)?(/[A-Za-z0-9_.\-]+)*'
+      - name: string.unquoted.modelfile
+        match: '\S+'
+
+  instruction-parameter-active:
+    begin: '(?i)^\s*(PARAMETER)\s+(num_ctx|num_batch|num_gpu|main_gpu|num_thread|num_keep|num_predict|seed|temperature|top_k|top_p|min_p|typical_p|tfs_z|repeat_last_n|repeat_penalty|presence_penalty|frequency_penalty|mirostat|mirostat_eta|mirostat_tau|stop|use_mmap)\b\s*'
+    beginCaptures:
+      '1':
+        name: keyword.control.instruction.parameter.modelfile
+      '2':
+        name: variable.parameter.modelfile
+    end: '$'
+    patterns:
+      - include: '#parameter-value'
+
+  instruction-parameter-deprecated:
+    begin: '(?i)^\s*(PARAMETER)\s+(penalize_newline|low_vram|f16_kv|logits_all|vocab_only|use_mlock|num_gqa)\b\s*'
+    beginCaptures:
+      '1':
+        name: keyword.control.instruction.parameter.modelfile
+      '2':
+        name: variable.parameter.deprecated.modelfile
+    end: '$'
+    patterns:
+      - include: '#parameter-value'
+
+  instruction-parameter-unknown:
+    begin: '(?i)^\s*(PARAMETER)\s+([A-Za-z_]\w*)\b\s*'
+    beginCaptures:
+      '1':
+        name: keyword.control.instruction.parameter.modelfile
+      '2':
+        name: variable.parameter.unknown.modelfile
+    end: '$'
+    patterns:
+      - include: '#parameter-value'
+
+  parameter-value:
+    patterns:
+      - include: '#string-triple'
+      - include: '#string-double'
+      - include: '#boolean'
+      - include: '#number'
+      - name: string.unquoted.modelfile
+        match: '\S+'
+
+  instruction-template:
+    begin: '(?i)^\s*(TEMPLATE)\b\s*'
+    beginCaptures:
+      '1':
+        name: keyword.control.instruction.template.modelfile
+    end: '$'
+    patterns:
+      - include: '#string-triple'
+      - include: '#string-double'
+      - name: string.unquoted.modelfile
+        match: '\S+'
+
+  instruction-system:
+    begin: '(?i)^\s*(SYSTEM)\b\s*'
+    beginCaptures:
+      '1':
+        name: keyword.control.instruction.system.modelfile
+    end: '$'
+    patterns:
+      - include: '#string-triple'
+      - include: '#string-double'
+      - name: string.unquoted.modelfile
+        match: '\S+'
+
+  instruction-license:
+    begin: '(?i)^\s*(LICENSE)\b\s*'
+    beginCaptures:
+      '1':
+        name: keyword.control.instruction.license.modelfile
+    end: '$'
+    patterns:
+      - include: '#string-triple'
+      - include: '#string-double'
+      - name: string.unquoted.modelfile
+        match: '\S+'
+
+  instruction-message-valid:
+    begin: '(?i)^\s*(MESSAGE)\s+(system|user|assistant)\b\s*'
+    beginCaptures:
+      '1':
+        name: keyword.control.instruction.message.modelfile
+      '2':
+        name: constant.language.role.modelfile
+    end: '$'
+    patterns:
+      - include: '#string-triple'
+      - include: '#string-double'
+      - name: string.unquoted.modelfile
+        match: '\S+'
+
+  instruction-message-invalid:
+    begin: '(?i)^\s*(MESSAGE)\s+([A-Za-z_]\w*)\b\s*'
+    beginCaptures:
+      '1':
+        name: keyword.control.instruction.message.modelfile
+      '2':
+        name: invalid.illegal.role.modelfile
+    end: '$'
+    patterns:
+      - include: '#string-triple'
+      - include: '#string-double'
+      - name: string.unquoted.modelfile
+        match: '\S+'
+
+  instruction-adapter:
+    begin: '(?i)^\s*(ADAPTER)\b\s*'
+    beginCaptures:
+      '1':
+        name: keyword.control.instruction.adapter.modelfile
+    end: '$'
+    patterns:
+      - include: '#string-double'
+      - name: string.unquoted.path.modelfile
+        match: '\S+'
+
+  instruction-requires:
+    begin: '(?i)^\s*(REQUIRES)\b\s*'
+    beginCaptures:
+      '1':
+        name: keyword.control.instruction.requires.modelfile
+    end: '$'
+    patterns:
+      - name: constant.other.version.modelfile
+        match: 'v?\d+\.\d+\.\d+(-[A-Za-z0-9.]+)?(\+[A-Za-z0-9.]+)?'
+      - include: '#string-double'
+      - name: invalid.illegal.version.modelfile
+        match: '\S+'
+
+  instruction-renderer:
+    begin: '(?i)^\s*(RENDERER)\b\s*'
+    beginCaptures:
+      '1':
+        name: keyword.control.instruction.renderer.modelfile
+    end: '$'
+    patterns:
+      - include: '#string-double'
+      - name: string.unquoted.modelfile
+        match: '\S+'
+
+  instruction-parser:
+    begin: '(?i)^\s*(PARSER)\b\s*'
+    beginCaptures:
+      '1':
+        name: keyword.control.instruction.parser.modelfile
+    end: '$'
+    patterns:
+      - include: '#string-double'
+      - name: string.unquoted.modelfile
+        match: '\S+'
+
+  instruction-draft:
+    begin: '(?i)^\s*(DRAFT)\b\s*'
+    beginCaptures:
+      '1':
+        name: keyword.control.instruction.draft.modelfile
+    end: '$'
+    patterns:
+      - include: '#string-double'
+      - name: string.unquoted.path.modelfile
+        match: '\S+'
+
+  string-triple:
+    name: string.quoted.triple.modelfile
+    begin: '"""'
+    beginCaptures:
+      '0':
+        name: punctuation.definition.string.begin.modelfile
+    end: '"""'
+    endCaptures:
+      '0':
+        name: punctuation.definition.string.end.modelfile
+    patterns:
+      - include: '#go-template'
+
+  string-double:
+    name: string.quoted.double.modelfile
+    begin: '"'
+    beginCaptures:
+      '0':
+        name: punctuation.definition.string.begin.modelfile
+    end: '"|$'
+    endCaptures:
+      '0':
+        name: punctuation.definition.string.end.modelfile
+    patterns:
+      - include: '#go-template'
+
+  boolean:
+    name: constant.language.boolean.modelfile
+    match: '(?i)\b(true|false)\b'
+
+  number:
+    name: constant.numeric.modelfile
+    match: '-?\b\d+(\.\d+)?\b'
+
+  go-template:
+    name: meta.embedded.expression.go-template.modelfile
+    begin: '\{\{-?'
+    beginCaptures:
+      '0':
+        name: punctuation.section.template.begin.modelfile
+    end: '-?\}\}'
+    endCaptures:
+      '0':
+        name: punctuation.section.template.end.modelfile
+    patterns:
+      - include: '#go-template-keyword'
+      - include: '#go-template-variable'
+      - include: '#go-template-variable-unknown'
+      - include: '#go-template-string'
+      - include: '#go-template-pipe'
+      - include: '#go-template-function'
+
+  go-template-keyword:
+    name: keyword.control.template.modelfile
+    match: '\b(if|else|end|range|with|define|block|template|not|and|or|eq|ne|lt|gt|le|ge|len|index)\b'
+
+  go-template-variable:
+    name: variable.other.template.modelfile
+    match: '\.(System|Prompt|Messages|Response|Tools|Role|Content|Name|Description|Parameters|Arguments|FunctionName|Function|IsLastMessage)\b'
+
+  go-template-variable-unknown:
+    name: variable.other.template.unknown.modelfile
+    match: '\.[A-Za-z_]\w*\b'
+
+  go-template-string:
+    name: string.quoted.double.template.modelfile
+    match: '"[^"]*"'
+
+  go-template-pipe:
+    name: keyword.operator.template.modelfile
+    match: '\|'
+
+  go-template-function:
+    name: support.function.template.modelfile
+    match: '\b[A-Za-z_]\w*\b'

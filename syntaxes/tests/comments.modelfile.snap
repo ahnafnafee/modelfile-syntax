@@ -1,0 +1,44 @@
+># Top-of-file comment
+#^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+># Multi-line comment block describing this Modelfile's purpose
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+># Author: ahnafnafee.dev
+#^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>
+>  # Indented comment — still a comment, leading whitespace is allowed
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>
+>FROM llama3.2
+#^^^^ source.modelfile keyword.control.instruction.from.modelfile
+#    ^ source.modelfile
+#     ^^^^^^^^ source.modelfile entity.name.tag.from.modelfile
+>
+># Comment between instructions
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>PARAMETER temperature 0.7
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^^^^ source.modelfile variable.parameter.modelfile
+#                     ^ source.modelfile
+#                      ^^^ source.modelfile constant.numeric.modelfile
+>
+># Note: the next line has a # INSIDE a quoted string — that is NOT a comment.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>PARAMETER stop "###User:"
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^ source.modelfile variable.parameter.modelfile
+#              ^ source.modelfile
+#               ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.begin.modelfile
+#                ^^^^^^^^ source.modelfile string.quoted.double.modelfile
+#                        ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.end.modelfile
+>
+>SYSTEM "you are helpful"
+#^^^^^^ source.modelfile keyword.control.instruction.system.modelfile
+#      ^ source.modelfile
+#       ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.begin.modelfile
+#        ^^^^^^^^^^^^^^^ source.modelfile string.quoted.double.modelfile
+#                       ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.end.modelfile
+># Trailing comment at end of file
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>

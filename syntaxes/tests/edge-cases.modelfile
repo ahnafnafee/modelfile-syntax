@@ -1,0 +1,34 @@
+# Edge cases the grammar must handle gracefully.
+
+# Mixed-case keywords (Modelfile is case-insensitive)
+from llama3.2
+From llama3.2
+fRoM llama3.2
+
+# Lowercase parameter name
+parameter temperature 0.5
+
+# Leading whitespace before instruction
+   FROM llama3.2
+	PARAMETER num_ctx 4096
+
+# Negative number
+PARAMETER seed -1
+
+# Float without leading zero
+PARAMETER temperature .8
+
+# Boolean value
+PARAMETER use_mmap false
+
+# Empty triple-quoted string
+SYSTEM """"""
+
+# Single-line triple-quoted string
+SYSTEM """you are helpful"""
+
+# Triple-quoted with embedded double quote
+SYSTEM """She said "hello" and waved."""
+
+# Quoted FROM value (legal per Ollama parser)
+FROM "llama3.2:8b"

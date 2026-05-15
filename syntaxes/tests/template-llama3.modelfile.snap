@@ -1,0 +1,95 @@
+>FROM llama3.2
+#^^^^ source.modelfile keyword.control.instruction.from.modelfile
+#    ^ source.modelfile
+#     ^^^^^^^^ source.modelfile entity.name.tag.from.modelfile
+>
+>TEMPLATE """{{- if .System }}<|start_header_id|>system<|end_header_id|>
+#^^^^^^^^ source.modelfile keyword.control.instruction.template.modelfile
+#        ^ source.modelfile
+#         ^^^ source.modelfile string.quoted.triple.modelfile punctuation.definition.string.begin.modelfile
+#            ^^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile punctuation.section.template.begin.modelfile
+#               ^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile
+#                ^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile keyword.control.template.modelfile
+#                  ^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile
+#                   ^^^^^^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile variable.other.template.modelfile
+#                          ^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile
+#                           ^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile punctuation.section.template.end.modelfile
+#                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile string.quoted.triple.modelfile
+>
+>{{ .System }}<|eot_id|>{{- end }}
+#^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile punctuation.section.template.begin.modelfile
+#  ^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile
+#   ^^^^^^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile variable.other.template.modelfile
+#          ^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile
+#           ^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile punctuation.section.template.end.modelfile
+#             ^^^^^^^^^^ source.modelfile string.quoted.triple.modelfile
+#                       ^^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile punctuation.section.template.begin.modelfile
+#                          ^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile
+#                           ^^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile keyword.control.template.modelfile
+#                              ^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile
+#                               ^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile punctuation.section.template.end.modelfile
+>{{- range .Messages }}<|start_header_id|>{{ .Role }}<|end_header_id|>
+#^^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile punctuation.section.template.begin.modelfile
+#   ^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile
+#    ^^^^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile keyword.control.template.modelfile
+#         ^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile
+#          ^^^^^^^^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile variable.other.template.modelfile
+#                   ^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile
+#                    ^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile punctuation.section.template.end.modelfile
+#                      ^^^^^^^^^^^^^^^^^^^ source.modelfile string.quoted.triple.modelfile
+#                                         ^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile punctuation.section.template.begin.modelfile
+#                                           ^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile
+#                                            ^^^^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile variable.other.template.modelfile
+#                                                 ^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile
+#                                                  ^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile punctuation.section.template.end.modelfile
+#                                                    ^^^^^^^^^^^^^^^^^^ source.modelfile string.quoted.triple.modelfile
+>
+>{{ .Content }}<|eot_id|>{{- end }}<|start_header_id|>assistant<|end_header_id|>
+#^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile punctuation.section.template.begin.modelfile
+#  ^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile
+#   ^^^^^^^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile variable.other.template.modelfile
+#           ^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile
+#            ^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile punctuation.section.template.end.modelfile
+#              ^^^^^^^^^^ source.modelfile string.quoted.triple.modelfile
+#                        ^^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile punctuation.section.template.begin.modelfile
+#                           ^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile
+#                            ^^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile keyword.control.template.modelfile
+#                               ^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile
+#                                ^^ source.modelfile string.quoted.triple.modelfile meta.embedded.expression.go-template.modelfile punctuation.section.template.end.modelfile
+#                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile string.quoted.triple.modelfile
+>
+>"""
+#^^^ source.modelfile string.quoted.triple.modelfile punctuation.definition.string.end.modelfile
+>
+>PARAMETER stop "<|start_header_id|>"
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^ source.modelfile variable.parameter.modelfile
+#              ^ source.modelfile
+#               ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.begin.modelfile
+#                ^^^^^^^^^^^^^^^^^^^ source.modelfile string.quoted.double.modelfile
+#                                   ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.end.modelfile
+>PARAMETER stop "<|end_header_id|>"
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^ source.modelfile variable.parameter.modelfile
+#              ^ source.modelfile
+#               ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.begin.modelfile
+#                ^^^^^^^^^^^^^^^^^ source.modelfile string.quoted.double.modelfile
+#                                 ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.end.modelfile
+>PARAMETER stop "<|eot_id|>"
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^ source.modelfile variable.parameter.modelfile
+#              ^ source.modelfile
+#               ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.begin.modelfile
+#                ^^^^^^^^^^ source.modelfile string.quoted.double.modelfile
+#                          ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.end.modelfile
+>
+>SYSTEM """You are a helpful assistant."""
+#^^^^^^ source.modelfile keyword.control.instruction.system.modelfile
+#      ^ source.modelfile
+#       ^^^ source.modelfile string.quoted.triple.modelfile punctuation.definition.string.begin.modelfile
+#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile string.quoted.triple.modelfile
+#                                      ^^^ source.modelfile string.quoted.triple.modelfile punctuation.definition.string.end.modelfile
+>

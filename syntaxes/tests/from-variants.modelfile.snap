@@ -1,0 +1,78 @@
+># Each FROM below is a separate fixture for grammar tokenization only.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+># A real Modelfile must have exactly one FROM — the linter enforces that elsewhere.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>
+># Bare model name
+#^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>FROM llama3
+#^^^^ source.modelfile keyword.control.instruction.from.modelfile
+#    ^ source.modelfile
+#     ^^^^^^ source.modelfile entity.name.tag.from.modelfile
+>
+># Tagged model
+#^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>FROM llama3.2:8b
+#^^^^ source.modelfile keyword.control.instruction.from.modelfile
+#    ^ source.modelfile
+#     ^^^^^^^^^^^ source.modelfile entity.name.tag.from.modelfile
+>
+># Tagged with quantization suffix
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>FROM llama3.2:7b-instruct-q4_K_M
+#^^^^ source.modelfile keyword.control.instruction.from.modelfile
+#    ^ source.modelfile
+#     ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile entity.name.tag.from.modelfile
+>
+># Registry path
+#^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>FROM registry.ollama.ai/library/llama3:latest
+#^^^^ source.modelfile keyword.control.instruction.from.modelfile
+#    ^ source.modelfile
+#     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile entity.name.tag.from.modelfile
+#                                      ^^^^^^^ source.modelfile string.unquoted.modelfile
+>
+># HuggingFace-style reference
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>FROM hf.co/Qwen/Qwen2.5-7B-Instruct-GGUF
+#^^^^ source.modelfile keyword.control.instruction.from.modelfile
+#    ^ source.modelfile
+#     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile entity.name.tag.from.modelfile
+>
+># Relative path to GGUF
+#^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>FROM ./models/llama.gguf
+#^^^^ source.modelfile keyword.control.instruction.from.modelfile
+#    ^ source.modelfile
+#     ^^^^^^^^^^^^^^^^^^^ source.modelfile string.unquoted.path.modelfile
+>
+># Absolute Unix path
+#^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>FROM /opt/models/llama.gguf
+#^^^^ source.modelfile keyword.control.instruction.from.modelfile
+#    ^ source.modelfile
+#     ^^^^^^^^^^^^^^^^^^^^^^ source.modelfile string.unquoted.path.modelfile
+>
+># User-home expansion
+#^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>FROM ~/models/qwen.gguf
+#^^^^ source.modelfile keyword.control.instruction.from.modelfile
+#    ^ source.modelfile
+#     ^^^^^^^^^^^^^^^^^^ source.modelfile string.unquoted.path.modelfile
+>
+># Safetensors directory
+#^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>FROM ./qwen2.5-7b-instruct/
+#^^^^ source.modelfile keyword.control.instruction.from.modelfile
+#    ^ source.modelfile
+#     ^^^^^^^^^^^^^^^^^^^^^^ source.modelfile string.unquoted.path.modelfile
+>
+># Quoted (uncommon but legal)
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>FROM "llama3.2:8b"
+#^^^^ source.modelfile keyword.control.instruction.from.modelfile
+#    ^ source.modelfile
+#     ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.begin.modelfile
+#      ^^^^^^^^^^^ source.modelfile string.quoted.double.modelfile
+#                 ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.end.modelfile
+>

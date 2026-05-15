@@ -1,0 +1,22 @@
+# Demonstrates one of every Ollama Modelfile instruction.
+REQUIRES 0.6.0
+
+FROM llama3.2:8b
+
+PARAMETER temperature 0.5
+PARAMETER stop "</s>"
+
+ADAPTER ./adapter.gguf
+
+LICENSE """MIT License — see LICENSE for full text."""
+
+TEMPLATE """{{ if .System }}<|system|>{{ .System }}<|/system|>{{ end }}{{ .Prompt }}"""
+
+SYSTEM """You are a helpful research assistant."""
+
+MESSAGE user "What is the capital of France?"
+MESSAGE assistant "Paris."
+
+RENDERER ollama
+
+PARSER llama

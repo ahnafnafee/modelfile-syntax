@@ -1,0 +1,189 @@
+>FROM llama3.2
+#^^^^ source.modelfile keyword.control.instruction.from.modelfile
+#    ^ source.modelfile
+#     ^^^^^^^^ source.modelfile entity.name.tag.from.modelfile
+>
+># Runner parameters
+#^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>PARAMETER num_ctx 8192
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^ source.modelfile variable.parameter.modelfile
+#                 ^ source.modelfile
+#                  ^^^^ source.modelfile constant.numeric.modelfile
+>PARAMETER num_batch 512
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^^ source.modelfile variable.parameter.modelfile
+#                   ^ source.modelfile
+#                    ^^^ source.modelfile constant.numeric.modelfile
+>PARAMETER num_gpu 999
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^ source.modelfile variable.parameter.modelfile
+#                 ^ source.modelfile
+#                  ^^^ source.modelfile constant.numeric.modelfile
+>PARAMETER main_gpu 0
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^ source.modelfile variable.parameter.modelfile
+#                  ^ source.modelfile
+#                   ^ source.modelfile constant.numeric.modelfile
+>PARAMETER num_thread 8
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^^^ source.modelfile variable.parameter.modelfile
+#                    ^ source.modelfile
+#                     ^ source.modelfile constant.numeric.modelfile
+>PARAMETER use_mmap true
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^ source.modelfile variable.parameter.modelfile
+#                  ^ source.modelfile
+#                   ^^^^ source.modelfile constant.language.boolean.modelfile
+>
+># Sampling parameters
+#^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>PARAMETER temperature 0.7
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^^^^ source.modelfile variable.parameter.modelfile
+#                     ^ source.modelfile
+#                      ^^^ source.modelfile constant.numeric.modelfile
+>PARAMETER top_k 40
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^ source.modelfile variable.parameter.modelfile
+#               ^ source.modelfile
+#                ^^ source.modelfile constant.numeric.modelfile
+>PARAMETER top_p 0.9
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^ source.modelfile variable.parameter.modelfile
+#               ^ source.modelfile
+#                ^^^ source.modelfile constant.numeric.modelfile
+>PARAMETER min_p 0.05
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^ source.modelfile variable.parameter.modelfile
+#               ^ source.modelfile
+#                ^^^^ source.modelfile constant.numeric.modelfile
+>PARAMETER typical_p 1.0
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^^ source.modelfile variable.parameter.modelfile
+#                   ^ source.modelfile
+#                    ^^^ source.modelfile constant.numeric.modelfile
+>PARAMETER tfs_z 1.0
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^ source.modelfile variable.parameter.modelfile
+#               ^ source.modelfile
+#                ^^^ source.modelfile constant.numeric.modelfile
+>
+># Repetition penalties
+#^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>PARAMETER repeat_last_n 64
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^^^^^^ source.modelfile variable.parameter.modelfile
+#                       ^ source.modelfile
+#                        ^^ source.modelfile constant.numeric.modelfile
+>PARAMETER repeat_penalty 1.1
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^^^^^^^ source.modelfile variable.parameter.modelfile
+#                        ^ source.modelfile
+#                         ^^^ source.modelfile constant.numeric.modelfile
+>PARAMETER presence_penalty 0.0
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^^^^^^^^^ source.modelfile variable.parameter.modelfile
+#                          ^ source.modelfile
+#                           ^^^ source.modelfile constant.numeric.modelfile
+>PARAMETER frequency_penalty 0.0
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^^^^^^^^^^ source.modelfile variable.parameter.modelfile
+#                           ^ source.modelfile
+#                            ^^^ source.modelfile constant.numeric.modelfile
+>
+># Mirostat sampling
+#^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>PARAMETER mirostat 0
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^ source.modelfile variable.parameter.modelfile
+#                  ^ source.modelfile
+#                   ^ source.modelfile constant.numeric.modelfile
+>PARAMETER mirostat_eta 0.1
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^^^^^ source.modelfile variable.parameter.modelfile
+#                      ^ source.modelfile
+#                       ^^^ source.modelfile constant.numeric.modelfile
+>PARAMETER mirostat_tau 5.0
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^^^^^ source.modelfile variable.parameter.modelfile
+#                      ^ source.modelfile
+#                       ^^^ source.modelfile constant.numeric.modelfile
+>
+># Predict / seed
+#^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>PARAMETER num_predict -1
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^^^^ source.modelfile variable.parameter.modelfile
+#                     ^ source.modelfile
+#                      ^^ source.modelfile constant.numeric.modelfile
+>PARAMETER num_keep 4
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^ source.modelfile variable.parameter.modelfile
+#                  ^ source.modelfile
+#                   ^ source.modelfile constant.numeric.modelfile
+>PARAMETER seed 42
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^ source.modelfile variable.parameter.modelfile
+#              ^ source.modelfile
+#               ^^ source.modelfile constant.numeric.modelfile
+>
+># Stop sequences (multi-value)
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>PARAMETER stop "<|eot_id|>"
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^ source.modelfile variable.parameter.modelfile
+#              ^ source.modelfile
+#               ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.begin.modelfile
+#                ^^^^^^^^^^ source.modelfile string.quoted.double.modelfile
+#                          ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.end.modelfile
+>PARAMETER stop "</s>"
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^ source.modelfile variable.parameter.modelfile
+#              ^ source.modelfile
+#               ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.begin.modelfile
+#                ^^^^ source.modelfile string.quoted.double.modelfile
+#                    ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.end.modelfile
+>
+># Deprecated parameter (should still highlight, linter warns)
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>PARAMETER use_mlock true
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^^ source.modelfile variable.parameter.deprecated.modelfile
+#                   ^ source.modelfile
+#                    ^^^^ source.modelfile constant.language.boolean.modelfile
+>
+># Unknown parameter (linter flags, grammar still tokenizes)
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>PARAMETER what_is_this 1
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^^^^^ source.modelfile variable.parameter.unknown.modelfile
+#                      ^ source.modelfile
+#                       ^ source.modelfile constant.numeric.modelfile
+>

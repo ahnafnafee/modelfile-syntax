@@ -1,0 +1,32 @@
+# Each FROM below is a separate fixture for grammar tokenization only.
+# A real Modelfile must have exactly one FROM — the linter enforces that elsewhere.
+
+# Bare model name
+FROM llama3
+
+# Tagged model
+FROM llama3.2:8b
+
+# Tagged with quantization suffix
+FROM llama3.2:7b-instruct-q4_K_M
+
+# Registry path
+FROM registry.ollama.ai/library/llama3:latest
+
+# HuggingFace-style reference
+FROM hf.co/Qwen/Qwen2.5-7B-Instruct-GGUF
+
+# Relative path to GGUF
+FROM ./models/llama.gguf
+
+# Absolute Unix path
+FROM /opt/models/llama.gguf
+
+# User-home expansion
+FROM ~/models/qwen.gguf
+
+# Safetensors directory
+FROM ./qwen2.5-7b-instruct/
+
+# Quoted (uncommon but legal)
+FROM "llama3.2:8b"

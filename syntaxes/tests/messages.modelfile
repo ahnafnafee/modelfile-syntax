@@ -1,0 +1,11 @@
+FROM llama3.2
+
+SYSTEM """You are a math tutor. Explain step by step."""
+
+MESSAGE user "What is 2 + 2?"
+MESSAGE assistant "2 + 2 = 4."
+MESSAGE user """If I have 3 apples and buy 2 more, how many do I have?"""
+MESSAGE assistant """You have 3 + 2 = 5 apples."""
+
+# Invalid role — grammar still tokenizes the keyword but flags role as illegal
+MESSAGE robot "this role is not in the spec"

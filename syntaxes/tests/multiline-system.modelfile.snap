@@ -1,0 +1,31 @@
+>FROM llama3.2
+#^^^^ source.modelfile keyword.control.instruction.from.modelfile
+#    ^ source.modelfile
+#     ^^^^^^^^ source.modelfile entity.name.tag.from.modelfile
+>
+>SYSTEM """
+#^^^^^^ source.modelfile keyword.control.instruction.system.modelfile
+#      ^ source.modelfile
+#       ^^^ source.modelfile string.quoted.triple.modelfile punctuation.definition.string.begin.modelfile
+>You are a senior Python engineer who answers in three sections:
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile string.quoted.triple.modelfile
+>
+>1. Direct answer (one sentence)
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile string.quoted.triple.modelfile
+>2. Code (concise, runnable)
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile string.quoted.triple.modelfile
+>3. Caveats (only if non-obvious)
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile string.quoted.triple.modelfile
+>
+>Do not invent APIs. If unsure, say so.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile string.quoted.triple.modelfile
+>"""
+#^^^ source.modelfile string.quoted.triple.modelfile punctuation.definition.string.end.modelfile
+>
+>PARAMETER temperature 0.2
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^^^^ source.modelfile variable.parameter.modelfile
+#                     ^ source.modelfile
+#                      ^^^ source.modelfile constant.numeric.modelfile
+>

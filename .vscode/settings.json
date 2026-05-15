@@ -1,0 +1,23 @@
+{
+  "files.exclude": {
+    "out": true,
+    "dist": true,
+    "node_modules": true,
+    ".vscode-test": true
+  },
+  "search.exclude": {
+    "out": true,
+    "dist": true,
+    "syntaxes/*.json": true,
+    "syntaxes/tests/**/*.snap": true
+  },
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "eslint.experimental.useFlatConfig": true
+}

@@ -1,0 +1,16 @@
+# Top-of-file comment
+# Multi-line comment block describing this Modelfile's purpose
+# Author: ahnafnafee.dev
+
+  # Indented comment — still a comment, leading whitespace is allowed
+
+FROM llama3.2
+
+# Comment between instructions
+PARAMETER temperature 0.7
+
+# Note: the next line has a # INSIDE a quoted string — that is NOT a comment.
+PARAMETER stop "###User:"
+
+SYSTEM "you are helpful"
+# Trailing comment at end of file

@@ -1,0 +1,104 @@
+># Edge cases the grammar must handle gracefully.
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>
+># Mixed-case keywords (Modelfile is case-insensitive)
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>from llama3.2
+#^^^^ source.modelfile keyword.control.instruction.from.modelfile
+#    ^ source.modelfile
+#     ^^^^^^^^ source.modelfile entity.name.tag.from.modelfile
+>From llama3.2
+#^^^^ source.modelfile keyword.control.instruction.from.modelfile
+#    ^ source.modelfile
+#     ^^^^^^^^ source.modelfile entity.name.tag.from.modelfile
+>fRoM llama3.2
+#^^^^ source.modelfile keyword.control.instruction.from.modelfile
+#    ^ source.modelfile
+#     ^^^^^^^^ source.modelfile entity.name.tag.from.modelfile
+>
+># Lowercase parameter name
+#^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>parameter temperature 0.5
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^^^^ source.modelfile variable.parameter.modelfile
+#                     ^ source.modelfile
+#                      ^^^ source.modelfile constant.numeric.modelfile
+>
+># Leading whitespace before instruction
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>   FROM llama3.2
+#^^^ source.modelfile
+#   ^^^^ source.modelfile keyword.control.instruction.from.modelfile
+#       ^ source.modelfile
+#        ^^^^^^^^ source.modelfile entity.name.tag.from.modelfile
+>	PARAMETER num_ctx 4096
+#^ source.modelfile
+# ^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#          ^ source.modelfile
+#           ^^^^^^^ source.modelfile variable.parameter.modelfile
+#                  ^ source.modelfile
+#                   ^^^^ source.modelfile constant.numeric.modelfile
+>
+># Negative number
+#^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>PARAMETER seed -1
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^ source.modelfile variable.parameter.modelfile
+#              ^ source.modelfile
+#               ^^ source.modelfile constant.numeric.modelfile
+>
+># Float without leading zero
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>PARAMETER temperature .8
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^^^^ source.modelfile variable.parameter.modelfile
+#                     ^ source.modelfile
+#                      ^^ source.modelfile string.unquoted.modelfile
+>
+># Boolean value
+#^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>PARAMETER use_mmap false
+#^^^^^^^^^ source.modelfile keyword.control.instruction.parameter.modelfile
+#         ^ source.modelfile
+#          ^^^^^^^^ source.modelfile variable.parameter.modelfile
+#                  ^ source.modelfile
+#                   ^^^^^ source.modelfile constant.language.boolean.modelfile
+>
+># Empty triple-quoted string
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>SYSTEM """"""
+#^^^^^^ source.modelfile keyword.control.instruction.system.modelfile
+#      ^ source.modelfile
+#       ^^^ source.modelfile string.quoted.triple.modelfile punctuation.definition.string.begin.modelfile
+#          ^^^ source.modelfile string.quoted.triple.modelfile punctuation.definition.string.end.modelfile
+>
+># Single-line triple-quoted string
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>SYSTEM """you are helpful"""
+#^^^^^^ source.modelfile keyword.control.instruction.system.modelfile
+#      ^ source.modelfile
+#       ^^^ source.modelfile string.quoted.triple.modelfile punctuation.definition.string.begin.modelfile
+#          ^^^^^^^^^^^^^^^ source.modelfile string.quoted.triple.modelfile
+#                         ^^^ source.modelfile string.quoted.triple.modelfile punctuation.definition.string.end.modelfile
+>
+># Triple-quoted with embedded double quote
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>SYSTEM """She said "hello" and waved."""
+#^^^^^^ source.modelfile keyword.control.instruction.system.modelfile
+#      ^ source.modelfile
+#       ^^^ source.modelfile string.quoted.triple.modelfile punctuation.definition.string.begin.modelfile
+#          ^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile string.quoted.triple.modelfile
+#                                     ^^^ source.modelfile string.quoted.triple.modelfile punctuation.definition.string.end.modelfile
+>
+># Quoted FROM value (legal per Ollama parser)
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.modelfile comment.line.number-sign.modelfile
+>FROM "llama3.2:8b"
+#^^^^ source.modelfile keyword.control.instruction.from.modelfile
+#    ^ source.modelfile
+#     ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.begin.modelfile
+#      ^^^^^^^^^^^ source.modelfile string.quoted.double.modelfile
+#                 ^ source.modelfile string.quoted.double.modelfile punctuation.definition.string.end.modelfile
+>

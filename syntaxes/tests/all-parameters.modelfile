@@ -1,0 +1,43 @@
+FROM llama3.2
+
+# Runner parameters
+PARAMETER num_ctx 8192
+PARAMETER num_batch 512
+PARAMETER num_gpu 999
+PARAMETER main_gpu 0
+PARAMETER num_thread 8
+PARAMETER use_mmap true
+
+# Sampling parameters
+PARAMETER temperature 0.7
+PARAMETER top_k 40
+PARAMETER top_p 0.9
+PARAMETER min_p 0.05
+PARAMETER typical_p 1.0
+PARAMETER tfs_z 1.0
+
+# Repetition penalties
+PARAMETER repeat_last_n 64
+PARAMETER repeat_penalty 1.1
+PARAMETER presence_penalty 0.0
+PARAMETER frequency_penalty 0.0
+
+# Mirostat sampling
+PARAMETER mirostat 0
+PARAMETER mirostat_eta 0.1
+PARAMETER mirostat_tau 5.0
+
+# Predict / seed
+PARAMETER num_predict -1
+PARAMETER num_keep 4
+PARAMETER seed 42
+
+# Stop sequences (multi-value)
+PARAMETER stop "<|eot_id|>"
+PARAMETER stop "</s>"
+
+# Deprecated parameter (should still highlight, linter warns)
+PARAMETER use_mlock true
+
+# Unknown parameter (linter flags, grammar still tokenizes)
+PARAMETER what_is_this 1

@@ -1,0 +1,8 @@
+dist/
+out/
+node_modules/
+*.vsix
+syntaxes/*.json
+syntaxes/tests/**/*.snap
+.vscode-test/
+images/

@@ -1,0 +1,151 @@
+{
+  "name": "ollama-modelfile",
+  "displayName": "Ollama Modelfile — Syntax, Linter & Snippets",
+  "description": "Highlight, lint, autocomplete, and snippet support for Ollama Modelfiles. Works in VSCode, VSCodium, Cursor, Windsurf, and vscode.dev.",
+  "version": "0.1.0",
+  "publisher": "ahnafnafee",
+  "license": "MIT",
+  "author": {
+    "name": "Ahnaf An Nafee",
+    "url": "https://www.ahnafnafee.dev"
+  },
+  "homepage": "https://github.com/ahnafnafee/ollama-modelfile#readme",
+  "bugs": {
+    "url": "https://github.com/ahnafnafee/ollama-modelfile/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahnafnafee/ollama-modelfile.git"
+  },
+  "sponsor": {
+    "url": "https://www.ahnafnafee.dev"
+  },
+  "galleryBanner": {
+    "color": "#0a0a0a",
+    "theme": "dark"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters",
+    "Snippets"
+  ],
+  "keywords": [
+    "ollama",
+    "modelfile",
+    "ollama-modelfile",
+    "llm",
+    "local-llm",
+    "local-ai",
+    "ai",
+    "syntax",
+    "syntax-highlighting",
+    "linter",
+    "validation",
+    "vscodium",
+    "cursor",
+    "windsurf",
+    "tmlanguage"
+  ],
+  "qna": "marketplace",
+  "engines": {
+    "vscode": "^1.85.0",
+    "node": ">=20"
+  },
+  "main": "./dist/extension.js",
+  "browser": "./dist/web/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "modelfile",
+        "aliases": [
+          "Ollama Modelfile",
+          "Modelfile"
+        ],
+        "filenames": [
+          "Modelfile"
+        ],
+        "filenamePatterns": [
+          "Modelfile.*",
+          "*.modelfile"
+        ],
+        "extensions": [
+          ".modelfile"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "modelfile",
+        "scopeName": "source.modelfile",
+        "path": "./syntaxes/modelfile.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "modelfile",
+        "path": "./snippets/modelfile.json"
+      }
+    ],
+    "configuration": {
+      "title": "Ollama Modelfile",
+      "properties": {
+        "ollamaModelfile.lint.enabled": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Enable real-time validation of Modelfiles."
+        },
+        "ollamaModelfile.lint.disabledRules": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string",
+            "pattern": "^OM[0-9]{3}$"
+          },
+          "markdownDescription": "List of rule IDs to disable (e.g. `[\"OM012\", \"OM015\"]`). See [docs/rules.md](https://github.com/ahnafnafee/ollama-modelfile/blob/main/docs/rules.md)."
+        },
+        "ollamaModelfile.lint.warnOnDefaultContextSize": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Emit warning OM012 when `num_ctx` is set to the default 2048 (most modern models support more)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build:grammar": "node scripts/build-grammar.mjs",
+    "build": "node esbuild.config.mjs",
+    "watch": "node esbuild.config.mjs --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write .",
+    "test:grammar": "npm run build:grammar && vscode-tmgrammar-snap \"syntaxes/tests/**/*.modelfile\"",
+    "test:grammar:update": "npm run build:grammar && vscode-tmgrammar-snap --updateSnapshot \"syntaxes/tests/**/*.modelfile\"",
+    "compile:tests": "tsc -p ./",
+    "pretest": "npm run compile:tests",
+    "test": "mocha \"out/test/**/*.test.js\"",
+    "test:all": "npm run test && npm run test:grammar",
+    "package": "vsce package",
+    "publish:marketplace": "vsce publish",
+    "publish:ovsx": "ovsx publish",
+    "vscode:prepublish": "npm run build && npm run build:grammar"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/mocha": "^10.0.7",
+    "@types/node": "^20.12.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/test-electron": "^2.4.0",
+    "@vscode/vsce": "^3.0.0",
+    "esbuild": "^0.25.0",
+    "eslint": "^9.0.0",
+    "globals": "^15.0.0",
+    "js-yaml": "^4.1.0",
+    "mocha": "^10.4.0",
+    "ovsx": "^0.10.0",
+    "prettier": "^3.3.0",
+    "typescript": "^5.4.0",
+    "typescript-eslint": "^8.0.0",
+    "vscode-tmgrammar-test": "^0.1.3"
+  }
+}
