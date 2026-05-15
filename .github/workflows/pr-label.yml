@@ -1,0 +1,70 @@
+name: pr-label
+
+# Reads the Conventional Commits prefix from every PR title and adds a matching
+# label (`feat`, `fix`, `docs`, `perf`, `refactor`, `chore`, `ci`, `build`,
+# `deps`, `grammar`, `linter`). The labels feed .github/release.yml so the
+# auto-generated release notes bucket changes by type.
+
+on:
+  pull_request_target:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+concurrency:
+  group: pr-label-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v8
+        with:
+          script: |
+            const title = context.payload.pull_request.title || '';
+            const m = title.match(/^(\w+)(?:\(([^)]+)\))?!?:\s*/);
+            if (!m) return;
+            const prefix = m[1].toLowerCase();
+            const scope = (m[2] || '').toLowerCase();
+            const map = {
+              feat: 'feat',
+              feature: 'feat',
+              fix: 'fix',
+              bugfix: 'fix',
+              docs: 'docs',
+              doc: 'docs',
+              perf: 'perf',
+              performance: 'perf',
+              refactor: 'refactor',
+              chore: 'chore',
+              ci: 'ci',
+              build: 'build',
+              deps: 'deps',
+              dependencies: 'deps',
+              test: 'chore',
+              tests: 'chore',
+              style: 'chore',
+              revert: 'chore'
+            };
+            const labels = new Set();
+            const base = map[prefix];
+            if (base) labels.add(base);
+            // Scope-driven extras: feat(grammar) → also `grammar`.
+            const scopeMap = {
+              grammar: 'grammar',
+              tmlanguage: 'grammar',
+              linter: 'linter',
+              rules: 'linter',
+              rule: 'linter'
+            };
+            if (scope && scopeMap[scope]) labels.add(scopeMap[scope]);
+            if (labels.size === 0) return;
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              labels: [...labels]
+            });

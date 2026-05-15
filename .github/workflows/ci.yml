@@ -21,14 +21,24 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node: [20, 22]
+        node: [22, 24]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node }}
-          cache: npm
+          # `cache: 'npm'` intentionally omitted — see ci-cache-safety rule.
+          # Cache restore + save are explicit, with save gated on success below.
+
+      - name: Restore npm cache
+        id: cache-npm
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.npm
+          key: npm-${{ runner.os }}-node${{ matrix.node }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            npm-${{ runner.os }}-node${{ matrix.node }}-
 
       - name: Install dependencies
         run: npm ci
@@ -57,9 +67,16 @@ jobs:
       - name: Package .vsix (smoke)
         run: npx vsce package --no-update-package-json --no-git-tag-version --out modelfile-syntax-${{ matrix.os }}-node${{ matrix.node }}.vsix
 
+      - name: Save npm cache (only on green run)
+        if: success() && steps.cache-npm.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.npm
+          key: ${{ steps.cache-npm.outputs.cache-primary-key }}
+
       - name: Upload .vsix artifact (one per matrix cell)
-        if: matrix.os == 'ubuntu-latest' && matrix.node == 22
-        uses: actions/upload-artifact@v4
+        if: matrix.os == 'ubuntu-latest' && matrix.node == 24
+        uses: actions/upload-artifact@v7
         with:
           name: modelfile-syntax-vsix
           path: '*.vsix'

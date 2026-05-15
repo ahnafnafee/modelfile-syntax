@@ -16,7 +16,7 @@ const desktopBuild = {
   entryPoints: ['src/extension.ts'],
   outfile: 'dist/extension.js',
   platform: 'node',
-  target: 'node20'
+  target: 'node22'
 };
 
 const webBuild = {

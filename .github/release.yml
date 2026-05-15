@@ -1,0 +1,71 @@
+# Categorizes auto-generated release notes by Conventional Commits prefix.
+# Triggered by GitHub when `generate_release_notes: true` is set on a Release
+# (already wired in .github/workflows/release.yml).
+#
+# Mapping: PR titles starting with `feat:` / `feat(scope):` land under "Features",
+# `fix:` under "Bug fixes", and so on. Untagged PRs fall through to "Other changes".
+
+changelog:
+  exclude:
+    labels:
+      - skip-changelog
+      - duplicate
+      - invalid
+      - wontfix
+    authors:
+      - dependabot
+      - dependabot[bot]
+
+  categories:
+    - title: ✨ Features
+      labels:
+        - feat
+        - feature
+        - enhancement
+      # Title-prefix-based bucketing happens via PR title parsing; labels are a
+      # fallback for PRs that didn't follow Conventional Commits.
+
+    - title: 🐛 Bug fixes
+      labels:
+        - fix
+        - bug
+
+    - title: 📝 Documentation
+      labels:
+        - docs
+        - documentation
+
+    - title: 🔬 Linter rules
+      labels:
+        - linter
+        - rule
+
+    - title: 🎨 Grammar / syntax highlighting
+      labels:
+        - grammar
+        - tmlanguage
+
+    - title: ⚡ Performance
+      labels:
+        - perf
+        - performance
+
+    - title: 🛠️ Build & tooling
+      labels:
+        - build
+        - ci
+        - chore
+        - tooling
+
+    - title: ♻️ Refactors
+      labels:
+        - refactor
+
+    - title: ⬆️ Dependencies
+      labels:
+        - deps
+        - dependencies
+
+    - title: 📦 Other changes
+      labels:
+        - '*'

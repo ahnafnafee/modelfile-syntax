@@ -79,7 +79,7 @@ Edit `snippets/modelfile.json` directly. Follow the existing patterns:
 
 ## CI gates
 
-Every PR runs on Ubuntu / macOS / Windows × Node 20 / 22 (six matrix cells). All of the following must pass:
+Every PR runs on Ubuntu / macOS / Windows × Node 22 / 24 (six matrix cells). All of the following must pass:
 
 - `npm run lint`
 - `npm run typecheck`

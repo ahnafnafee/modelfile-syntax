@@ -30,3 +30,5 @@ CODE_OF_CONDUCT.md
 CLAUDE.md
 images/icon.svg
 images/README.md
+.mocharc.json
+.gitattributes

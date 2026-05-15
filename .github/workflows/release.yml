@@ -12,14 +12,23 @@ jobs:
     name: build · publish · release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: 22
-          cache: npm
+          node-version: 24
+          # `cache: 'npm'` intentionally omitted — see ci-cache-safety rule.
+
+      - name: Restore npm cache
+        id: cache-npm
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.npm
+          key: npm-${{ runner.os }}-node24-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            npm-${{ runner.os }}-node24-
 
       - name: Verify tag matches package.json version
         run: |
@@ -67,8 +76,15 @@ jobs:
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
 
+      - name: Save npm cache (only on green run)
+        if: success() && steps.cache-npm.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.npm
+          key: ${{ steps.cache-npm.outputs.cache-primary-key }}
+
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: modelfile-syntax.vsix
           generate_release_notes: true
