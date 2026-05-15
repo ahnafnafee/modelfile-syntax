@@ -1,2 +1,23 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Force LF line endings for all text files on every OS.
+# Prevents Windows checkouts from converting LF -> CRLF and breaking the
+# Prettier --check step in CI (which enforces `endOfLine: "lf"`).
+* text=auto eol=lf
+
+# Treat known text formats explicitly as text + LF.
+*.ts        text eol=lf
+*.js        text eol=lf
+*.mjs       text eol=lf
+*.json      text eol=lf
+*.yml       text eol=lf
+*.yaml      text eol=lf
+*.md        text eol=lf
+*.modelfile text eol=lf
+*.snap      text eol=lf
+
+# Treat known binary formats as binary (no normalization, no diffs).
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.vsix binary

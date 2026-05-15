@@ -34,7 +34,6 @@
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [About the author](#about-the-author)
-- [Citation](#citation)
 - [License](#license)
 - [Acknowledgments](#acknowledgments)
 
@@ -345,22 +344,6 @@ Open the folder in VSCode and press <kbd>F5</kbd> to launch an Extension Develop
 Built by **Ahnaf An Nafee** — [ahnafnafee.dev](https://www.ahnafnafee.dev) — [@ahnafnafee on GitHub](https://github.com/ahnafnafee).
 
 If this extension saves you time, the kindest thing you can do is leave a Marketplace review and link to it from your blog / repo. (No sponsor button — yet.)
-
----
-
-## Citation
-
-If you reference this extension in a paper, tool comparison, course material, or research artifact:
-
-```bibtex
-@software{nafee_ollama_modelfile_2026,
-  author       = {An Nafee, Ahnaf},
-  title        = {ollama-modelfile: VSCode syntax highlighting and validation for Ollama Modelfiles},
-  url          = {https://github.com/ahnafnafee/ollama-modelfile},
-  year         = {2026},
-  publisher    = {GitHub}
-}
-```
 
 ---
 
