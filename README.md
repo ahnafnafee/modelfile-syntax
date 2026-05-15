@@ -6,11 +6,10 @@
 
 **The complete language-tooling experience for [Ollama](https://ollama.com) Modelfiles, in every VSCode-family editor.**
 
-[![Marketplace version](https://img.shields.io/visual-studio-marketplace/v/ahnafnafee.modelfile-syntax?label=Marketplace&color=0a0a0a)](https://marketplace.visualstudio.com/items?itemName=ahnafnafee.modelfile-syntax)
-[![Open VSX version](https://img.shields.io/open-vsx/v/ahnafnafee/modelfile-syntax?label=Open%20VSX&color=0a0a0a)](https://open-vsx.org/extension/ahnafnafee/modelfile-syntax)
-[![Marketplace installs](https://img.shields.io/visual-studio-marketplace/i/ahnafnafee.modelfile-syntax?label=installs&color=0a0a0a)](https://marketplace.visualstudio.com/items?itemName=ahnafnafee.modelfile-syntax)
-[![CI](https://github.com/ahnafnafee/modelfile-syntax/actions/workflows/ci.yml/badge.svg)](https://github.com/ahnafnafee/modelfile-syntax/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-0a0a0a.svg)](LICENSE)
+[![Marketplace](https://img.shields.io/visual-studio-marketplace/v/ahnafnafee.modelfile-syntax?style=for-the-badge&label=Marketplace&labelColor=0a0a0a&color=007ACC&logo=visualstudiocode&logoColor=white)](https://marketplace.visualstudio.com/items?itemName=ahnafnafee.modelfile-syntax)
+[![Open VSX](https://img.shields.io/open-vsx/v/ahnafnafee/modelfile-syntax?style=for-the-badge&label=Open%20VSX&labelColor=0a0a0a&color=A40E26&logo=eclipseide&logoColor=white)](https://open-vsx.org/extension/ahnafnafee/modelfile-syntax)
+[![CI](https://img.shields.io/github/actions/workflow/status/ahnafnafee/modelfile-syntax/ci.yml?style=for-the-badge&branch=main&label=CI&labelColor=0a0a0a&logo=githubactions&logoColor=white)](https://github.com/ahnafnafee/modelfile-syntax/actions/workflows/ci.yml)
+[![License](https://img.shields.io/github/license/ahnafnafee/modelfile-syntax?style=for-the-badge&label=License&labelColor=0a0a0a&color=blue)](LICENSE)
 
 </div>
 
