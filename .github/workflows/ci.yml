@@ -55,13 +55,13 @@ jobs:
         run: npm test
 
       - name: Package .vsix (smoke)
-        run: npx vsce package --no-update-package-json --no-git-tag-version --out ollama-modelfile-${{ matrix.os }}-node${{ matrix.node }}.vsix
+        run: npx vsce package --no-update-package-json --no-git-tag-version --out modelfile-syntax-${{ matrix.os }}-node${{ matrix.node }}.vsix
 
       - name: Upload .vsix artifact (one per matrix cell)
         if: matrix.os == 'ubuntu-latest' && matrix.node == 22
         uses: actions/upload-artifact@v4
         with:
-          name: ollama-modelfile-vsix
+          name: modelfile-syntax-vsix
           path: '*.vsix'
           if-no-files-found: error
           retention-days: 14

@@ -1,6 +1,6 @@
 # Publishing checklist
 
-Internal docs for cutting a release of **ollama-modelfile**.
+Internal docs for cutting a release of **modelfile-syntax**.
 
 ## Prerequisites
 
@@ -11,12 +11,12 @@ Internal docs for cutting a release of **ollama-modelfile**.
 
 ## Release process
 
-1. Verify `main` is green: <https://github.com/ahnafnafee/ollama-modelfile/actions>.
+1. Verify `main` is green: <https://github.com/ahnafnafee/modelfile-syntax/actions>.
 2. Update `package.json`:
    - Bump `version` (semver — patch for fixes, minor for features, major for breaking changes).
 3. Update `CHANGELOG.md`:
    - Move `Unreleased` entries under a new dated heading.
-   - Add a comparison link at the bottom: `[X.Y.Z]: https://github.com/ahnafnafee/ollama-modelfile/compare/vX.Y.W...vX.Y.Z`.
+   - Add a comparison link at the bottom: `[X.Y.Z]: https://github.com/ahnafnafee/modelfile-syntax/compare/vX.Y.W...vX.Y.Z`.
 4. Commit and push to `main`:
    ```bash
    git add package.json CHANGELOG.md package-lock.json
@@ -37,8 +37,8 @@ Internal docs for cutting a release of **ollama-modelfile**.
    - Publishes to the Open VSX Registry (`ovsx publish`).
    - Creates a GitHub Release with auto-generated notes and the `.vsix` attached.
 8. Verify both registries:
-   - Marketplace: <https://marketplace.visualstudio.com/items?itemName=ahnafnafee.ollama-modelfile>
-   - Open VSX: <https://open-vsx.org/extension/ahnafnafee/ollama-modelfile>
+   - Marketplace: <https://marketplace.visualstudio.com/items?itemName=ahnafnafee.modelfile-syntax>
+   - Open VSX: <https://open-vsx.org/extension/ahnafnafee/modelfile-syntax>
 9. Smoke-test the new version in at least one editor by installing the new release.
 
 ## Rolling back

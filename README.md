@@ -2,14 +2,14 @@
 
 <img src="images/icon.png" alt="Ollama Modelfile extension icon" width="128" height="128" />
 
-# Ollama Modelfile — VSCode Syntax Highlighting, Linter & Snippets
+# Modelfile Syntax — VSCode tooling for Ollama Modelfiles
 
 **The complete language-tooling experience for [Ollama](https://ollama.com) Modelfiles, in every VSCode-family editor.**
 
-[![Marketplace version](https://img.shields.io/visual-studio-marketplace/v/ahnafnafee.ollama-modelfile?label=Marketplace&color=0a0a0a)](https://marketplace.visualstudio.com/items?itemName=ahnafnafee.ollama-modelfile)
-[![Open VSX version](https://img.shields.io/open-vsx/v/ahnafnafee/ollama-modelfile?label=Open%20VSX&color=0a0a0a)](https://open-vsx.org/extension/ahnafnafee/ollama-modelfile)
-[![Marketplace installs](https://img.shields.io/visual-studio-marketplace/i/ahnafnafee.ollama-modelfile?label=installs&color=0a0a0a)](https://marketplace.visualstudio.com/items?itemName=ahnafnafee.ollama-modelfile)
-[![CI](https://github.com/ahnafnafee/ollama-modelfile/actions/workflows/ci.yml/badge.svg)](https://github.com/ahnafnafee/ollama-modelfile/actions/workflows/ci.yml)
+[![Marketplace version](https://img.shields.io/visual-studio-marketplace/v/ahnafnafee.modelfile-syntax?label=Marketplace&color=0a0a0a)](https://marketplace.visualstudio.com/items?itemName=ahnafnafee.modelfile-syntax)
+[![Open VSX version](https://img.shields.io/open-vsx/v/ahnafnafee/modelfile-syntax?label=Open%20VSX&color=0a0a0a)](https://open-vsx.org/extension/ahnafnafee/modelfile-syntax)
+[![Marketplace installs](https://img.shields.io/visual-studio-marketplace/i/ahnafnafee.modelfile-syntax?label=installs&color=0a0a0a)](https://marketplace.visualstudio.com/items?itemName=ahnafnafee.modelfile-syntax)
+[![CI](https://github.com/ahnafnafee/modelfile-syntax/actions/workflows/ci.yml/badge.svg)](https://github.com/ahnafnafee/modelfile-syntax/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-0a0a0a.svg)](LICENSE)
 
 </div>
@@ -57,10 +57,10 @@
 
 | Editor                      | Where to install from                                                                                        | Install command                                          |
 | --------------------------- | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------- |
-| **VSCode**                  | [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=ahnafnafee.ollama-modelfile) | `code --install-extension ahnafnafee.ollama-modelfile`   |
-| **Cursor**                  | Visual Studio Marketplace (same as VSCode)                                                                   | `cursor --install-extension ahnafnafee.ollama-modelfile` |
+| **VSCode**                  | [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=ahnafnafee.modelfile-syntax) | `code --install-extension ahnafnafee.modelfile-syntax`   |
+| **Cursor**                  | Visual Studio Marketplace (same as VSCode)                                                                   | `cursor --install-extension ahnafnafee.modelfile-syntax` |
 | **Windsurf**                | Visual Studio Marketplace                                                                                    | search "Ollama Modelfile" in the Extensions panel        |
-| **VSCodium**                | [Open VSX Registry](https://open-vsx.org/extension/ahnafnafee/ollama-modelfile)                              | `codium --install-extension ahnafnafee.ollama-modelfile` |
+| **VSCodium**                | [Open VSX Registry](https://open-vsx.org/extension/ahnafnafee/modelfile-syntax)                              | `codium --install-extension ahnafnafee.modelfile-syntax` |
 | **Gitpod / Codespaces**     | Open VSX Registry                                                                                            | search "Ollama Modelfile"                                |
 | **vscode.dev / github.dev** | Visual Studio Marketplace                                                                                    | install from the Extensions panel                        |
 
@@ -173,7 +173,7 @@ FROM ./qwen2.5-7b-instruct/                         # safetensors directory
 
 ## Linter rules
 
-Every rule has a stable ID, severity, and an actionable message. Disable any rule via the [`ollamaModelfile.lint.disabledRules`](#configuration) setting.
+Every rule has a stable ID, severity, and an actionable message. Disable any rule via the [`modelfileSyntax.lint.disabledRules`](#configuration) setting.
 
 | ID                             | Severity | What it catches                                                                               |
 | ------------------------------ | -------- | --------------------------------------------------------------------------------------------- |
@@ -235,9 +235,9 @@ Open VSCode settings (<kbd>Ctrl</kbd>/<kbd>Cmd</kbd>+<kbd>,</kbd>) and search "O
 
 | Setting                                         | Type     | Default | Description                                                |
 | ----------------------------------------------- | -------- | ------- | ---------------------------------------------------------- |
-| `ollamaModelfile.lint.enabled`                  | boolean  | `true`  | Enable real-time validation.                               |
-| `ollamaModelfile.lint.disabledRules`            | string[] | `[]`    | Rule IDs to skip — e.g., `["OM012", "OM015"]`.             |
-| `ollamaModelfile.lint.warnOnDefaultContextSize` | boolean  | `true`  | Emit `OM012` when `num_ctx` is at the 2048 legacy default. |
+| `modelfileSyntax.lint.enabled`                  | boolean  | `true`  | Enable real-time validation.                               |
+| `modelfileSyntax.lint.disabledRules`            | string[] | `[]`    | Rule IDs to skip — e.g., `["OM012", "OM015"]`.             |
+| `modelfileSyntax.lint.warnOnDefaultContextSize` | boolean  | `true`  | Emit `OM012` when `num_ctx` is at the 2048 legacy default. |
 
 ---
 
@@ -269,10 +269,10 @@ No. The grammar, linter, hover docs, completions, and snippets all run locally i
 
 ### Can I disable individual linter rules?
 
-Yes. Set `ollamaModelfile.lint.disabledRules` to an array of rule IDs in your VSCode settings. For example, to silence the default-context-size warning and the too-many-stops warning:
+Yes. Set `modelfileSyntax.lint.disabledRules` to an array of rule IDs in your VSCode settings. For example, to silence the default-context-size warning and the too-many-stops warning:
 
 ```json
-"ollamaModelfile.lint.disabledRules": ["OM012", "OM015"]
+"modelfileSyntax.lint.disabledRules": ["OM012", "OM015"]
 ```
 
 ### Does this run `ollama` to validate?
@@ -285,7 +285,7 @@ See [Comparison](#comparison-vs-other-extensions).
 
 ### Where do I report a bug or suggest a feature?
 
-[GitHub Issues](https://github.com/ahnafnafee/ollama-modelfile/issues). Bug reports should include the Modelfile snippet that reproduces the issue, the editor, and the extension version.
+[GitHub Issues](https://github.com/ahnafnafee/modelfile-syntax/issues). Bug reports should include the Modelfile snippet that reproduces the issue, the editor, and the extension version.
 
 ### Is there a Neovim / Emacs / Helix version?
 
@@ -295,7 +295,7 @@ Not yet. The TextMate grammar can be reused in any editor that supports TextMate
 
 ## Comparison vs. other extensions
 
-|                                               | **ollama-modelfile** | Generic dotenv extensions | Plain-text fallback |
+|                                               | **modelfile-syntax** | Generic dotenv extensions | Plain-text fallback |
 | --------------------------------------------- | -------------------- | ------------------------- | ------------------- |
 | Syntax coloring for `FROM`, `PARAMETER`, etc. | ✅                   | partial                   | ❌                  |
 | Triple-quoted `"""..."""` body handling       | ✅                   | ❌                        | ❌                  |
@@ -316,7 +316,7 @@ Not yet. The TextMate grammar can be reused in any editor that supports TextMate
 - **v0.3** — Language Server Protocol mode for Neovim / Helix / Emacs.
 - **v0.4** — Optional `ollama create --dry-run` integration for true semantic validation.
 
-Track progress on the [project board](https://github.com/ahnafnafee/ollama-modelfile/projects).
+Track progress on the [project board](https://github.com/ahnafnafee/modelfile-syntax/projects).
 
 ---
 
@@ -325,14 +325,14 @@ Track progress on the [project board](https://github.com/ahnafnafee/ollama-model
 Issues and PRs welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for the local dev loop, the grammar-snapshot-test workflow, and the linter-rule contribution checklist.
 
 ```bash
-git clone https://github.com/ahnafnafee/ollama-modelfile
-cd ollama-modelfile
+git clone https://github.com/ahnafnafee/modelfile-syntax
+cd modelfile-syntax
 npm install
 npm run build:grammar
 npm run build
 npm test
 npm run test:grammar
-npm run package   # produces ollama-modelfile-X.Y.Z.vsix
+npm run package   # produces modelfile-syntax-X.Y.Z.vsix
 ```
 
 Open the folder in VSCode and press <kbd>F5</kbd> to launch an Extension Development Host with the extension under test.

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-A VSCode extension (`ahnafnafee.ollama-modelfile`) that provides TextMate-grammar-based syntax highlighting, an 18-rule linter, hover docs, autocomplete, and snippets for Ollama Modelfiles. Published to both the Visual Studio Marketplace and Open VSX Registry. See `README.md` and `docs/modelfile-reference.md` for product-level docs.
+A VSCode extension (`ahnafnafee.modelfile-syntax`) that provides TextMate-grammar-based syntax highlighting, an 18-rule linter, hover docs, autocomplete, and snippets for Ollama Modelfiles. Published to both the Visual Studio Marketplace and Open VSX Registry. See `README.md` and `docs/modelfile-reference.md` for product-level docs.
 
 ## Commands
 
@@ -72,7 +72,7 @@ A `v*.*.*` tag pushed to GitHub triggers `.github/workflows/release.yml`, which 
 
 ## Configuration model
 
-User-visible settings live under the `ollamaModelfile.lint.*` namespace in `package.json`'s `contributes.configuration` block. The diagnostics provider reads them via `vscode.workspace.getConfiguration('ollamaModelfile.lint')` and passes them into `validate()` as the `LintContext`. To add a new user setting:
+User-visible settings live under the `modelfileSyntax.lint.*` namespace in `package.json`'s `contributes.configuration` block. The diagnostics provider reads them via `vscode.workspace.getConfiguration('modelfileSyntax.lint')` and passes them into `validate()` as the `LintContext`. To add a new user setting:
 
 1. Declare the property in `package.json` under `contributes.configuration.properties`.
 2. Extend `LintContext` in `src/linter/rules.ts`.

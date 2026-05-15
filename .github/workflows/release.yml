@@ -55,21 +55,21 @@ jobs:
         run: npm test
 
       - name: Package .vsix
-        run: npx vsce package --out ollama-modelfile.vsix
+        run: npx vsce package --out modelfile-syntax.vsix
 
       - name: Publish to Visual Studio Marketplace
-        run: npx vsce publish --packagePath ollama-modelfile.vsix
+        run: npx vsce publish --packagePath modelfile-syntax.vsix
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
 
       - name: Publish to Open VSX Registry
-        run: npx ovsx publish ollama-modelfile.vsix
+        run: npx ovsx publish modelfile-syntax.vsix
         env:
           OVSX_PAT: ${{ secrets.OVSX_PAT }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: ollama-modelfile.vsix
+          files: modelfile-syntax.vsix
           generate_release_notes: true
           fail_on_unmatched_files: true

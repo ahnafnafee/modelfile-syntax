@@ -1,8 +1,8 @@
 # Linter rules
 
-This page documents every rule the `ollama-modelfile` extension's linter implements. Each rule has a stable ID (e.g., `OM001`), a severity, an actionable message, and a fix example.
+This page documents every rule the `modelfile-syntax` extension's linter implements. Each rule has a stable ID (e.g., `OM001`), a severity, an actionable message, and a fix example.
 
-Disable any rule via the [`ollamaModelfile.lint.disabledRules`](../README.md#configuration) VSCode setting.
+Disable any rule via the [`modelfileSyntax.lint.disabledRules`](../README.md#configuration) VSCode setting.
 
 ---
 
@@ -221,7 +221,7 @@ You always answer concisely.
 
 ## OM012 — num_ctx at default 2048
 
-**Severity:** warning (configurable — disable via [`ollamaModelfile.lint.warnOnDefaultContextSize`](../README.md#configuration))
+**Severity:** warning (configurable — disable via [`modelfileSyntax.lint.warnOnDefaultContextSize`](../README.md#configuration))
 
 Ollama's historical default for `num_ctx` is 2048 tokens — well below what most modern models actually support. Setting it explicitly to 2048 is almost always a mistake; either omit the line (to let Ollama use its own default) or set it to a value your model supports (8192, 16384, 32768, ...).
 

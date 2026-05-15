@@ -136,4 +136,4 @@ PARAMETER stop "###User:"   # This `#` is part of the stop value, not a comment.
 - The deprecated-parameter list — `deprecatedParameters` slice in `parser/parser.go`.
 - Semver validation — [`golang.org/x/mod/semver`](https://pkg.go.dev/golang.org/x/mod/semver) via `parser.go`.
 
-If you find a discrepancy between this reference and Ollama's actual behavior, open an [issue](https://github.com/ahnafnafee/ollama-modelfile/issues) — keeping this reference in sync with the upstream parser is one of the maintenance goals of the project.
+If you find a discrepancy between this reference and Ollama's actual behavior, open an [issue](https://github.com/ahnafnafee/modelfile-syntax/issues) — keeping this reference in sync with the upstream parser is one of the maintenance goals of the project.

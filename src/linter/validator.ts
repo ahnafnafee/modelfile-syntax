@@ -9,7 +9,7 @@ export function validate(file: ParsedFile, ctx: LintContext): LintDiagnostic[] {
       out.push(...rule.check(file, ctx));
     } catch (err) {
       // A bug in a rule must never break the editor. Emit no diagnostic and continue.
-      // (Errors surface in `ollama-modelfile` output channel via VSCode's error handling.)
+      // (Errors surface in `modelfile-syntax` output channel via VSCode's error handling.)
       void err;
     }
   }

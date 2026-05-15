@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to **ollama-modelfile** are documented in this file. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+All notable changes to **modelfile-syntax** are documented in this file. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
@@ -18,7 +18,7 @@ All notable changes to **ollama-modelfile** are documented in this file. Format 
 - 26+ snippets: chat / coder / RAG starters; Llama 3 / Qwen 2.5 / ChatML / Phi-3 templates; all common PARAMETER patterns.
 - File detection for `Modelfile`, `Modelfile.*`, and `*.modelfile`.
 - Browser-compatible bundle for vscode.dev / github.dev.
-- Settings: `ollamaModelfile.lint.enabled`, `ollamaModelfile.lint.disabledRules`, `ollamaModelfile.lint.warnOnDefaultContextSize`.
+- Settings: `modelfileSyntax.lint.enabled`, `modelfileSyntax.lint.disabledRules`, `modelfileSyntax.lint.warnOnDefaultContextSize`.
 
-[Unreleased]: https://github.com/ahnafnafee/ollama-modelfile/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/ahnafnafee/ollama-modelfile/releases/tag/v0.1.0
+[Unreleased]: https://github.com/ahnafnafee/modelfile-syntax/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/ahnafnafee/modelfile-syntax/releases/tag/v0.1.0

@@ -1,7 +1,7 @@
 {
-  "name": "ollama-modelfile",
-  "displayName": "Ollama Modelfile — Syntax, Linter & Snippets",
-  "description": "Highlight, lint, autocomplete, and snippet support for Ollama Modelfiles. Works in VSCode, VSCodium, Cursor, Windsurf, and vscode.dev.",
+  "name": "modelfile-syntax",
+  "displayName": "Modelfile Syntax for Ollama",
+  "description": "Syntax highlighting, an 18-rule linter, hover docs, autocomplete, and snippets for Ollama Modelfiles. Works in VSCode, VSCodium, Cursor, Windsurf, and vscode.dev.",
   "version": "0.1.0",
   "publisher": "ahnafnafee",
   "license": "MIT",
@@ -9,13 +9,13 @@
     "name": "Ahnaf An Nafee",
     "url": "https://www.ahnafnafee.dev"
   },
-  "homepage": "https://github.com/ahnafnafee/ollama-modelfile#readme",
+  "homepage": "https://github.com/ahnafnafee/modelfile-syntax#readme",
   "bugs": {
-    "url": "https://github.com/ahnafnafee/ollama-modelfile/issues"
+    "url": "https://github.com/ahnafnafee/modelfile-syntax/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ahnafnafee/ollama-modelfile.git"
+    "url": "git+https://github.com/ahnafnafee/modelfile-syntax.git"
   },
   "sponsor": {
     "url": "https://www.ahnafnafee.dev"
@@ -33,6 +33,7 @@
   "keywords": [
     "ollama",
     "modelfile",
+    "modelfile-syntax",
     "ollama-modelfile",
     "llm",
     "local-llm",
@@ -89,23 +90,23 @@
       }
     ],
     "configuration": {
-      "title": "Ollama Modelfile",
+      "title": "Modelfile Syntax",
       "properties": {
-        "ollamaModelfile.lint.enabled": {
+        "modelfileSyntax.lint.enabled": {
           "type": "boolean",
           "default": true,
           "markdownDescription": "Enable real-time validation of Modelfiles."
         },
-        "ollamaModelfile.lint.disabledRules": {
+        "modelfileSyntax.lint.disabledRules": {
           "type": "array",
           "default": [],
           "items": {
             "type": "string",
             "pattern": "^OM[0-9]{3}$"
           },
-          "markdownDescription": "List of rule IDs to disable (e.g. `[\"OM012\", \"OM015\"]`). See [docs/rules.md](https://github.com/ahnafnafee/ollama-modelfile/blob/main/docs/rules.md)."
+          "markdownDescription": "List of rule IDs to disable (e.g. `[\"OM012\", \"OM015\"]`). See [docs/rules.md](https://github.com/ahnafnafee/modelfile-syntax/blob/main/docs/rules.md)."
         },
-        "ollamaModelfile.lint.warnOnDefaultContextSize": {
+        "modelfileSyntax.lint.warnOnDefaultContextSize": {
           "type": "boolean",
           "default": true,
           "markdownDescription": "Emit warning OM012 when `num_ctx` is set to the default 2048 (most modern models support more)."

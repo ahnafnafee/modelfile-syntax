@@ -5,7 +5,7 @@ import type { LintDiagnostic } from '../linter/rules';
 
 const LANGUAGE_ID = 'modelfile';
 const DEBOUNCE_MS = 200;
-const DOCS_BASE = 'https://github.com/ahnafnafee/ollama-modelfile/blob/main/docs/rules.md';
+const DOCS_BASE = 'https://github.com/ahnafnafee/modelfile-syntax/blob/main/docs/rules.md';
 
 const severityMap: Record<LintDiagnostic['severity'], vscode.DiagnosticSeverity> = {
   error: vscode.DiagnosticSeverity.Error,
@@ -14,12 +14,12 @@ const severityMap: Record<LintDiagnostic['severity'], vscode.DiagnosticSeverity>
 };
 
 export function registerDiagnostics(): vscode.Disposable {
-  const collection = vscode.languages.createDiagnosticCollection('ollama-modelfile');
+  const collection = vscode.languages.createDiagnosticCollection('modelfile-syntax');
   const timers = new Map<string, NodeJS.Timeout>();
 
   const runLint = (document: vscode.TextDocument): void => {
     if (document.languageId !== LANGUAGE_ID) return;
-    const config = vscode.workspace.getConfiguration('ollamaModelfile.lint');
+    const config = vscode.workspace.getConfiguration('modelfileSyntax.lint');
     if (!config.get<boolean>('enabled', true)) {
       collection.delete(document.uri);
       return;
@@ -64,7 +64,7 @@ export function registerDiagnostics(): vscode.Disposable {
       }
     }),
     vscode.workspace.onDidChangeConfiguration((e) => {
-      if (!e.affectsConfiguration('ollamaModelfile')) return;
+      if (!e.affectsConfiguration('modelfileSyntax')) return;
       for (const editor of vscode.window.visibleTextEditors) {
         runLint(editor.document);
       }
@@ -84,7 +84,7 @@ function toVscodeDiagnostic(d: LintDiagnostic, document: vscode.TextDocument): v
   const end = clamp(d.line, Math.max(d.endCol, d.startCol + 1), document);
   const range = new vscode.Range(start, end);
   const diag = new vscode.Diagnostic(range, d.message, severityMap[d.severity]);
-  diag.source = 'ollama-modelfile';
+  diag.source = 'modelfile-syntax';
   diag.code = {
     value: d.ruleId,
     target: vscode.Uri.parse(`${DOCS_BASE}#${d.ruleId.toLowerCase()}`)

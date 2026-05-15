@@ -1,12 +1,12 @@
 # Contributing
 
-Thanks for your interest in improving **ollama-modelfile**. This document covers the local dev loop, the grammar-snapshot-test workflow, and the linter-rule contribution checklist.
+Thanks for your interest in improving **modelfile-syntax**. This document covers the local dev loop, the grammar-snapshot-test workflow, and the linter-rule contribution checklist.
 
 ## Quick start
 
 ```bash
-git clone https://github.com/ahnafnafee/ollama-modelfile
-cd ollama-modelfile
+git clone https://github.com/ahnafnafee/modelfile-syntax
+cd modelfile-syntax
 npm install
 npm run build:grammar   # syntaxes/*.yml -> syntaxes/*.json
 npm run build           # bundle src/ -> dist/
@@ -91,7 +91,7 @@ Every PR runs on Ubuntu / macOS / Windows × Node 20 / 22 (six matrix cells). Al
 
 ## Reporting bugs
 
-Use [GitHub Issues](https://github.com/ahnafnafee/ollama-modelfile/issues). For grammar / linter bugs, include the **minimal Modelfile that reproduces** the issue, the editor (VSCode / VSCodium / Cursor / Windsurf / vscode.dev), and the extension version.
+Use [GitHub Issues](https://github.com/ahnafnafee/modelfile-syntax/issues). For grammar / linter bugs, include the **minimal Modelfile that reproduces** the issue, the editor (VSCode / VSCodium / Cursor / Windsurf / vscode.dev), and the extension version.
 
 ## Code of conduct
 
