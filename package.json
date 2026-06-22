@@ -139,8 +139,8 @@
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
     "@types/mocha": "^10.0.10",
-    "@types/node": "^22.0.0",
-    "@types/vscode": "^1.85.0",
+    "@types/node": "^26.0.0",
+    "@types/vscode": "^1.125.0",
     "@vscode/test-electron": "^2.5.2",
     "@vscode/vsce": "^3.9.1",
     "esbuild": "^0.28.0",
