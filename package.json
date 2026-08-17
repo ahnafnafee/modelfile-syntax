@@ -144,14 +144,14 @@
     "@vscode/test-electron": "^2.5.2",
     "@vscode/vsce": "^3.9.1",
     "esbuild": "^0.28.0",
-    "eslint": "^10.4.0",
+    "eslint": "^10.8.1",
     "globals": "^17.6.0",
     "js-yaml": "^4.1.1",
     "mocha": "^11.7.5",
     "ovsx": "^0.10.12",
     "prettier": "^3.8.3",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.59.3",
+    "typescript-eslint": "^8.67.0",
     "vscode-tmgrammar-test": "^0.1.3"
   }
 }
